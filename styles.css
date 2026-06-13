@@ -1,0 +1,199 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+#aprender {
+    padding: 20px;
+}
+
+#aprender h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#aprender p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#tiradas {
+    padding: 20px;
+}
+
+#tiradas h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#tiradas select {
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#runas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+.runa {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.runa:hover {
+    background-color: #f0f0f0;
+}
+
+#historia {
+    padding: 20px;
+}
+
+#historia h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#historia p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#ejemplos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.ejemplo {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ejemplo:hover {
+    background-color: #f0f0f0;
+}
+
+#diario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.diario {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.diario:hover {
+    background-color: #f0f0f0;
+}
+#diario-grid .diario img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+#diario-grid .diario h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#diario-grid .diario p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#contacto {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+#contacto h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#contacto p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#contacto form {
+    display: flex;
+    flex-direction: column;
+}
+
+#contacto form input, #contacto form textarea {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#contacto form input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contacto form input[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+footer p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
