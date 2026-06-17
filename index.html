@@ -1,97 +1,492 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Runas Vikingas</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1119">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="App para aprender las 24 runas del Elder Futhark. Estilo nórdico con personalidad.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
+  <title>Nova Runas — Aprendé Runas Vikingas</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Nova Runas Vikingas</h1>
-        <p>Aprende a leer las runas vikingas</p>
-        <button id="sacar-runas">Saca tu primera runa</button>
+
+  <!-- ═══════════════ LOADING SCREEN ═══════════════ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-runa">ᚱ</div>
+    <div class="loading-text">N O V A &nbsp; R U N A S</div>
+    <div class="loading-bar"><div class="loading-fill"></div></div>
+  </div>
+
+  <!-- ═══════════════ PANTALLA LOGIN ═══════════════ -->
+  <div id="pantalla-login" class="pantalla">
+    <div class="login-bg">
+      <div class="floating-runes" id="floating-runes"></div>
+    </div>
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-logo">
+          <span class="logo-runa">ᚱᚢᚾᚨᛋ</span>
+          <span class="logo-sub">N O V A</span>
+        </div>
+        <p class="login-tagline">Descifrá el antiguo arte de las runas nórdicas</p>
+      </div>
+
+      <div id="login-form-container">
+        <!-- Login con email -->
+        <div id="login-email-section" class="login-section">
+          <input type="email" id="login-email" class="login-input" placeholder="Correo electrónico" autocomplete="email">
+          <input type="password" id="login-password" class="login-input" placeholder="Contraseña" autocomplete="current-password">
+          <button class="btn-primary btn-full" id="btn-login-email">Entrar</button>
+          <button class="btn-text" id="btn-show-register">¿No tenés cuenta? Creá una</button>
+        </div>
+
+        <!-- Registro -->
+        <div id="register-section" class="login-section hidden">
+          <input type="text" id="register-name" class="login-input" placeholder="Tu nombre de guerrero/a">
+          <input type="email" id="register-email" class="login-input" placeholder="Correo electrónico">
+          <input type="password" id="register-password" class="login-input" placeholder="Contraseña (mínimo 6 caracteres)">
+          <button class="btn-primary btn-full" id="btn-register-email">Crear Cuenta</button>
+          <button class="btn-text" id="btn-show-login">¿Ya tenés cuenta? Entrá</button>
+        </div>
+
+        <div class="login-divider">
+          <span>o</span>
+        </div>
+
+        <!-- Login con Google -->
+        <button class="btn-google btn-full" id="btn-login-google">
+          <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continuar con Google
+        </button>
+
+        <button class="btn-ghost btn-full" id="btn-saltar-login">Saltar por ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ONBOARDING ═══════════════ -->
+  <div id="pantalla-onboarding" class="pantalla">
+    <div class="onboarding-container">
+      <div class="onboarding-step" id="onboarding-step-1">
+        <h2>Elegí tu nombre de guerrero/a</h2>
+        <p class="onboarding-desc">¿Cómo te llamarán en Midgard?</p>
+        <input type="text" id="onboarding-nombre" class="login-input text-center" placeholder="Tu nombre" maxlength="20">
+        <button class="btn-primary btn-full" id="btn-onboarding-next">Continuar</button>
+      </div>
+
+      <div class="onboarding-step hidden" id="onboarding-step-2">
+        <h2>Elegí tu runa espíritu</h2>
+        <p class="onboarding-desc">Esta runa te acompañará en tu viaje</p>
+        <div class="onboarding-runes-grid" id="onboarding-runes-grid">
+          <!-- Se genera dinámicamente -->
+        </div>
+        <button class="btn-primary btn-full" id="btn-onboarding-finalizar" disabled>Comenzar mi viaje</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PANTALLA INICIO ═══════════════ -->
+  <div id="pantalla-inicio" class="pantalla">
+    <div class="pantalla-bg">
+      <div class="floating-runes subtle" id="floating-runes-home"></div>
+    </div>
+    <header class="header-inicio">
+      <div class="header-top">
+        <div class="user-info" id="user-info">
+          <span class="user-avatar" id="user-avatar">ᚠ</span>
+          <span class="user-name" id="user-name">Guerrero</span>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" id="btn-music-toggle" title="Música">🔊</button>
+          <button class="icon-btn" id="btn-settings">⚙️</button>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-pill">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-valor" id="streak-display">0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-valor" id="xp-display">0</span>
+          <span class="stat-label">XP</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon">⚔️</span>
+          <span class="stat-valor" id="nivel-display">1</span>
+        </div>
+      </div>
     </header>
-    <main>
-        <section id="aprender">
-            <h2>Aprender a leer runas</h2>
-            <p>La lectura de runas es un arte antiguo que se originó en la Europa del norte. Las runas son 24 símbolos que se utilizan para obtener información y guía.</p>
-            <p>Para leer las runas, debes seguir los siguientes pasos:</p>
-            <ol>
-                <li>Baraja las runas</li>
-                <li>Saca una o varias runas de la bolsa</li>
-                <li>Interpreta el significado de las runas según su posición y relación con las demás runas</li>
-            </ol>
-        </section>
-        <section id="tiradas">
-            <h2>Tiradas</h2>
-            <p>Puedes realizar diferentes tipos de tiradas para obtener información y guía.</p>
-            <select id="tirada">
-                <option value="1">1 runa</option>
-                <option value="3">3 runas (Nornas)</option>
-                <option value="5">5 runas (Cruz Nórdica)</option>
-                <option value="7">7 runas (Herradura)</option>
-                <option value="lanzamiento">Lanzamiento libre</option>
-            </select>
-            <button id="realizar-tirada">Realizar tirada</button>
-        </section>
-        <section id="runas">
-            <h2>Runas</h2>
-            <div id="runas-grid"></div>
-        </section>
-        <section id="historia">
-            <h2>Historia de las runas</h2>
-            <p>La lectura de runas moderna se originó en el siglo XX y no es una práctica vikinga tradicional.</p>
-        </section>
-        <section id="ejemplos">
-            <h2>Ejemplos de lecturas</h2>
-            <div id="ejemplos-grid"></div>
-        </section>
-        <section id="diario">
-            <h2>Diario de lecturas</h2>
-            <div id="diario-grid"></div>
-        </section>
+
+    <main class="main-inicio">
+      <div class="hero-section">
+        <h1 class="titulo-app">ᚠᚢᚦᚨᚱᚲ</h1>
+        <p class="subtitulo">Elder Futhark — El alfabeto de los dioses</p>
+      </div>
+
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">📜 Tus Lecciones</h2>
+        <div class="mapa-lecciones" id="mapa-lecciones"></div>
+      </div>
+
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">⚡ Desafío Diario</h2>
+        <button class="btn-desafio-diario" id="btn-desafio-diario">
+          <div class="desafio-icono">⚡</div>
+          <div class="desafio-info">
+            <span class="desafio-titulo">Desafío del día</span>
+            <span class="desafio-desc">5 runas al azar — +50 XP bonus</span>
+          </div>
+          <span class="desafio-estado" id="desafio-estado">▶</span>
+        </button>
+      </div>
+
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">🎯 Tirada Rápida</h2>
+        <button class="btn-tirada-diaria" id="btn-tirada-diaria">
+          <span class="tirada-runa-icon">ᛟ</span>
+          <div class="tirada-info">
+            <span class="tirada-titulo">Sacá tu runa del día</span>
+            <span class="tirada-desc">Una runa guía para tu camino</span>
+          </div>
+          <span class="tirada-arrow">→</span>
+        </button>
+      </div>
     </main>
-    <script src="script.js"></script>
-</body>
-</html>
-            <p>La lectura de runas es un arte antiguo que se originó en la Europa del norte. Las runas son 24 símbolos que se utilizan para obtener información y guía.</p>
-            <p>Para leer las runas, debes seguir los siguientes pasos:</p>
-            <ol>
-                <li>Baraja las runas</li>
-                <li>Saca una o varias runas de la bolsa</li>
-                <li>Interpreta el significado de las runas según su posición y relación con las demás runas</li>
-            </ol>
-        </section>
-        <section id="tiradas">
-            <h2>Tiradas</h2>
-            <p>Puedes realizar diferentes tipos de tiradas para obtener información y guía.</p>
-            <select id="tirada">
-                <option value="1">1 runa</option>
-                <option value="3">3 runas (Nornas)</option>
-                <option value="5">5 runas (Cruz Nórdica)</option>
-                <option value="7">7 runas (Herradura)</option>
-                <option value="lanzamiento">Lanzamiento libre</option>
-            </select>
-            <button id="realizar-tirada">Realizar tirada</button>
-        </section>
-        <section id="runas">
-            <h2>Runas</h2>
-            <div id="runas-grid"></div>
-        </section>
-        <section id="historia">
-            <h2>Historia de las runas</h2>
-            <p>La lectura de runas moderna se originó en el siglo XX y no es una práctica vikinga tradicional.</p>
-        </section>
-        <section id="ejemplos">
-            <h2>Ejemplos de lecturas</h2>
-            <div id="ejemplos-grid"></div>
-        </section>
-        <section id="diario">
-            <h2>Diario de lecturas</h2>
-            <div id="diario-grid"></div>
-        </section>
+
+    <nav class="nav-inferior">
+      <button class="nav-btn activa" data-pantalla="inicio">
+        <span class="nav-icon">⚔️</span>
+        <span>Aprender</span>
+      </button>
+      <button class="nav-btn" data-pantalla="referencia">
+        <span class="nav-icon">📜</span>
+        <span>Runas</span>
+      </button>
+      <button class="nav-btn" data-pantalla="tirada">
+        <span class="nav-icon-circle">ᛟ</span>
+      </button>
+      <button class="nav-btn" data-pantalla="diario">
+        <span class="nav-icon">📖</span>
+        <span>Diario</span>
+      </button>
+      <button class="nav-btn" data-pantalla="perfil">
+        <span class="nav-icon">🛡️</span>
+        <span>Perfil</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ PANTALLA REFERENCIA ═══════════════ -->
+  <div id="pantalla-referencia" class="pantalla">
+    <header class="pantalla-header">
+      <div class="header-content">
+        <h2>📜 Elder Futhark</h2>
+        <p class="header-sub">Las 24 runas del alfabeto nórdico</p>
+      </div>
+    </header>
+    <main class="main-referencia">
+      <div class="filtro-aett">
+        <button class="filtro-btn activa" data-aett="0">Todas</button>
+        <button class="filtro-btn" data-aett="1">I · Freyr</button>
+        <button class="filtro-btn" data-aett="2">II · Heimdall</button>
+        <button class="filtro-btn" data-aett="3">III · Tyr</button>
+      </div>
+      <div class="grid-referencia" id="grid-referencia"></div>
     </main>
-    <script src="script.js"></script>
+    <nav class="nav-inferior">
+      <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
+      <button class="nav-btn activa" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
+      <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
+      <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ PANTALLA TIRADA ═══════════════ -->
+  <div id="pantalla-tirada" class="pantalla">
+    <header class="pantalla-header">
+      <div class="header-content">
+        <h2>🔮 Tirada de Runas</h2>
+        <p class="header-sub">Consultá al Oráculo Nórdico</p>
+      </div>
+    </header>
+    <main class="main-tirada">
+      <div class="tirada-tipo-selector">
+        <button class="tirada-tipo activa" data-tipo="1">1 Runa</button>
+        <button class="tirada-tipo" data-tipo="3">3 Runas</button>
+        <button class="tirada-tipo" data-tipo="5">5 Runas</button>
+      </div>
+      <div class="tirada-visual">
+        <div class="tirada-bolsa" id="tirada-bolsa">
+          <div class="bolsa-runas">ᚠᚢᚦᚨᚱᚲᚷᚹ</div>
+          <p class="bolsa-texto">Tocá para sacar las runas</p>
+        </div>
+      </div>
+      <div class="tirada-resultado-container" id="tirada-resultado-container"></div>
+      <div class="tirada-acciones" id="tirada-acciones">
+        <button class="btn-primary btn-full" id="btn-hacer-tirada">🔮 Lanzar Runas</button>
+      </div>
+    </main>
+    <nav class="nav-inferior">
+      <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
+      <button class="nav-btn" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn activa" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
+      <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
+      <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ PANTALLA DIARIO ═══════════════ -->
+  <div id="pantalla-diario" class="pantalla">
+    <header class="pantalla-header">
+      <div class="header-content">
+        <h2>📖 Mi Diario</h2>
+        <p class="header-sub">Tus lecturas guardadas</p>
+      </div>
+    </header>
+    <main class="main-diario">
+      <div id="diario-contenido">
+        <p class="diario-vacio">Todavía no guardaste ninguna lectura.</p>
+      </div>
+    </main>
+    <nav class="nav-inferior">
+      <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
+      <button class="nav-btn" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
+      <button class="nav-btn activa" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
+      <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ PANTALLA PERFIL ═══════════════ -->
+  <div id="pantalla-perfil" class="pantalla">
+    <header class="pantalla-header">
+      <div class="header-content">
+        <h2>🛡️ Mi Perfil</h2>
+      </div>
+    </header>
+    <main class="main-perfil">
+      <div class="perfil-hero">
+        <div class="perfil-avatar">
+          <span class="avatar-runa" id="perfil-avatar-runa">ᛟ</span>
+        </div>
+        <h2 class="perfil-nombre" id="perfil-nombre">Guerrero</h2>
+        <p class="perfil-titulo" id="perfil-titulo">Aprendiz de Runas</p>
+      </div>
+
+      <div class="perfil-stats-grid">
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-valor" id="perfil-xp">0</span>
+          <span class="perfil-stat-label">XP Total</span>
+        </div>
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-valor" id="perfil-streak">0</span>
+          <span class="perfil-stat-label">Racha</span>
+        </div>
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-valor" id="perfil-lecciones">0</span>
+          <span class="perfil-stat-label">Lecciones</span>
+        </div>
+        <div class="perfil-stat-card">
+          <span class="perfil-stat-valor" id="perfil-runas">0</span>
+          <span class="perfil-stat-label">Runas</span>
+        </div>
+      </div>
+
+      <div class="perfil-seccion">
+        <h3>🏆 Medallas</h3>
+        <div class="medallas-grid" id="medallas-grid"></div>
+      </div>
+
+      <div class="perfil-seccion">
+        <h3>📊 Progreso por Aett</h3>
+        <div id="progreso-aett"></div>
+      </div>
+
+      <div class="perfil-seccion">
+        <h3>⚙️ Opciones</h3>
+        <div class="opciones-list">
+          <button class="opcion-btn" id="btn-edit-profile">✏️ Editar perfil</button>
+          <button class="opcion-btn" id="btn-credits">📜 Créditos</button>
+          <button class="opcion-btn" id="btn-logout">🚪 Cerrar sesión</button>
+          <button class="opcion-btn danger" id="btn-reset">🗑️ Resetear progreso</button>
+        </div>
+      </div>
+    </main>
+    <nav class="nav-inferior">
+      <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
+      <button class="nav-btn" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
+      <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
+      <button class="nav-btn activa" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ PANTALLA EJERCICIO ═══════════════ -->
+  <div id="pantalla-ejercicio" class="pantalla">
+    <header class="ejercicio-header">
+      <button class="btn-volver" id="btn-volver-leccion">✕</button>
+      <div class="progreso-barra">
+        <div class="progreso-fill" id="progreso-ejercicio"></div>
+      </div>
+      <span class="ejercicio-xp" id="ejercicio-xp-actual">+0 XP</span>
+    </header>
+    <main class="main-ejercicio">
+      <div class="ejercicio-contenido" id="ejercicio-contenido"></div>
+    </main>
+    <footer class="ejercicio-footer">
+      <div class="feedback-container" id="feedback-container"></div>
+      <button class="btn-primary btn-full" id="btn-siguiente" disabled>Siguiente</button>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ PANTALLA RESULTADO ═══════════════ -->
+  <div id="pantalla-resultado" class="pantalla">
+    <main class="main-resultado">
+      <div class="resultado-runa-bg">ᛟ</div>
+      <div class="resultado-icono" id="resultado-icono">🎉</div>
+      <h2 class="resultado-titulo" id="resultado-titulo">¡Lección Completada!</h2>
+      <div class="resultado-stats-grid">
+        <div class="resultado-stat-card">
+          <span class="resultado-stat-valor" id="resultado-xp">0</span>
+          <span class="resultado-stat-label">XP Ganado</span>
+        </div>
+        <div class="resultado-stat-card">
+          <span class="resultado-stat-valor" id="resultado-precision">0%</span>
+          <span class="resultado-stat-label">Precisión</span>
+        </div>
+        <div class="resultado-stat-card">
+          <span class="resultado-stat-valor" id="resultado-correctas">0/0</span>
+          <span class="resultado-stat-label">Correctas</span>
+        </div>
+      </div>
+      <div class="resultado-medallas" id="resultado-medallas"></div>
+      <button class="btn-primary btn-full" id="btn-continuar">Continuar</button>
+    </main>
+  </div>
+
+  <!-- ═══════════════ PANTALLA CRÉDITOS ═══════════════ -->
+  <div id="pantalla-credits" class="pantalla">
+    <header class="pantalla-header">
+      <div class="header-content">
+        <button class="btn-back" id="btn-credits-back">← Volver</button>
+        <h2>📜 Créditos</h2>
+      </div>
+    </header>
+    <main class="main-credits">
+      <div class="credits-logo">
+        <span class="credits-runa">ᚱᚢᚾᚨᛋ</span>
+        <span class="credits-version">v2.0</span>
+      </div>
+      <p class="credits-tagline">Hecho con ☕ y sabiduría nórdica</p>
+
+      <div class="credits-section">
+        <h3>Desarrollo</h3>
+        <p>Nova Runas — Proyecto de código abierto</p>
+      </div>
+      <div class="credits-section">
+        <h3>Sistema de Runas</h3>
+        <p>Elder Futhark — Alfabeto rúnico germánico (150-800 d.C.)</p>
+      </div>
+      <div class="credits-section">
+        <h3>Fuentes Tipográficas</h3>
+        <p>Cinzel Decorative — Google Fonts</p>
+        <p>Inter — Google Fonts</p>
+      </div>
+      <div class="credits-section">
+        <h3>Audio</h3>
+        <p>Música ambient: Freesound.org (Creative Commons)</p>
+        <p>Efectos de sonido: Biblioteca propia</p>
+      </div>
+      <div class="credits-section">
+        <h3>Tecnologías</h3>
+        <p>HTML5 · CSS3 · JavaScript ES6+</p>
+        <p>Firebase Auth · Firestore</p>
+      </div>
+      <div class="credits-section">
+        <h3>Licencia</h3>
+        <p>MIT License © 2026</p>
+      </div>
+      <div class="credits-footer">
+        <p>ᚠᚢᚦᚨᚱᚲ · May Odin guíe tu camino</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════════ MODAL RUNA ═══════════════ -->
+  <div id="modal-runa" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button class="modal-cerrar" id="modal-cerrar">✕</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MODAL PREMIUM ═══════════════ -->
+  <div id="modal-premium" class="modal-overlay hidden">
+    <div class="modal-content modal-premium">
+      <button class="modal-cerrar" id="modal-premium-cerrar">✕</button>
+      <div class="modal-body">
+        <div class="premium-icon">👑</div>
+        <h2 class="premium-titulo">Desbloqueá Nova Runas Pro</h2>
+        <p class="premium-desc">Accedé a todas las lecciones, tiradas ilimitadas y contenido exclusivo</p>
+        <ul class="premium-features">
+          <li>✅ 10 lecciones completas</li>
+          <li>✅ Tiradas ilimitadas</li>
+          <li>✅ Lecciones avanzadas de interpretación</li>
+          <li>✅ Temas de color personalizados</li>
+          <li>✅ Exportar diario</li>
+          <li>✅ Sin anuncios</li>
+        </ul>
+        <button class="btn-premium" id="btn-gumroad">Desbloquear Pro — $3.99 USD</button>
+        <p class="premium-nota">Pago único · Acceso de por vida</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MODAL SETTINGS ═══════════════ -->
+  <div id="modal-settings" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button class="modal-cerrar" id="modal-settings-cerrar">✕</button>
+      <div class="modal-body">
+        <h2>⚙️ Configuración</h2>
+        <div class="settings-group">
+          <label class="setting-row">
+            <span>🔊 Efectos de sonido</span>
+            <input type="checkbox" id="setting-sfx" checked>
+          </label>
+          <label class="setting-row">
+            <span>🎵 Música de fondo</span>
+            <input type="checkbox" id="setting-music" checked>
+          </label>
+          <label class="setting-row">
+            <span>🔔 Runa del día (9 AM)</span>
+            <input type="checkbox" id="setting-notifications">
+          </label>
+          <label class="setting-row">
+            <span>📱 Vibración</span>
+            <input type="checkbox" id="setting-vibration" checked>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ TOAST NOTIFICATIONS ═══════════════ -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>

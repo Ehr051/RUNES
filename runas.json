@@ -1,123 +1,266 @@
 [
-    {
-        "nombre": "Fehu",
-        "simbolo": "",
-        "significado": "Riqueza, prosperidad, nuevos comienzos materiales"
-    },
-    {
-        "nombre": "Uruz",
-        "simbolo": "",
-        "significado": "Fuerza, resistencia, potencial salvaje, salud"
-    },
-    {
-        "nombre": "Thurisaz",
-        "simbolo": "",
-        "significado": "Protección, conflicto, desafío, fuerza defensiva"
-    },
-    {
-        "nombre": "Ansuz",
-        "simbolo": "",
-        "significado": "Comunicación, sabiduría, mensajes divinos, palabra"
-    },
-    {
-        "nombre": "Raidho",
-        "simbolo": "",
-        "significado": "Viaje físico o espiritual, movimiento, ritmo"
-    },
-    {
-        "nombre": "Kenaz",
-        "simbolo": "",
-        "significado": "Antorcha, transformación, creatividad, luz interior"
-    },
-    {
-        "nombre": "Gebo",
-        "simbolo": "",
-        "significado": "Regalo, intercambio, sociedad, generosidad, equilibrio"
-    },
-    {
-        "nombre": "Wunjo",
-        "simbolo": "",
-        "significado": "Alegría, armonía, éxito, alineación, plenitud emocional"
-    },
-    {
-        "nombre": "Hagalaz",
-        "simbolo": "",
-        "significado": "Disrupción, crisis, poder de la naturaleza, cambio involuntario"
-    },
-    {
-        "nombre": "Nauthiz",
-        "simbolo": "",
-        "significado": "Necesidad, limitación, angustia, superación con paciencia"
-    },
-    {
-        "nombre": "Isa",
-        "simbolo": "",
-        "significado": "Hielo, quietud, estancamiento, tiempo de reflexión"
-    },
-    {
-        "nombre": "Jera",
-        "simbolo": "",
-        "significado": "Cosecha, ciclo, recompensa por trabajo, paciencia"
-    },
-    {
-        "nombre": "Eihwaz",
-        "simbolo": "",
-        "significado": "Transición, transformación, muerte/renacimiento, resistencia"
-    },
-    {
-        "nombre": "Perthro",
-        "simbolo": "",
-        "significado": "Misterio, destino, azar, conocimiento oculto"
-    },
-    {
-        "nombre": "Algiz",
-        "simbolo": "",
-        "significado": "Protección, conexión espiritual, alerta, guía superior"
-    },
-    {
-        "nombre": "Sowilo",
-        "simbolo": "",
-        "significado": "Sol, éxito, totalidad, fuerza vital, victoria"
-    },
-    {
-        "nombre": "Teiwaz",
-        "simbolo": "",
-        "significado": "Sacrificio, honor, coraje, voluntad, justicia"
-    },
-    {
-        "nombre": "Berkano",
-        "simbolo": "",
-        "significado": "Abedul, nacimiento, fertilidad, nuevos comienzos, crianza"
-    },
-    {
-        "nombre": "Ehwaz",
-        "simbolo": "",
-        "significado": "Caballo, movimiento, trabajo en equipo, progreso"
-    },
-    {
-        "nombre": "Mannaz",
-        "simbolo": "",
-        "significado": "Humanidad, el ser, orden social, potencial personal"
-    },
-    {
-        "nombre": "Laguz",
-        "simbolo": "",
-        "significado": "Agua, intuición, flujo, emociones, el inconsciente"
-    },
-    {
-        "nombre": "Ingwaz",
-        "simbolo": "",
-        "significado": "Semilla, gestación, crecimiento interno, ciclo completado"
-    },
-    {
-        "nombre": "Dagaz",
-        "simbolo": "",
-        "significado": "Día, amanecer, avance, transformación, iluminación"
-    },
-    {
-        "nombre": "Othala",
-        "simbolo": "",
-        "significado": "Herencia, ascendencia, hogar, propiedad duradera"
-    }
+  {
+    "id": "fehu",
+    "nombre": "Fehu",
+    "simbolo": "ᚠ",
+    "aett": 1,
+    "significado": "Riqueza, prosperidad, nuevos comienzos materiales",
+    "significado_detallado": "Abundancia y recompensa. Representa la riqueza material y espiritual que se gana con esfuerzo.",
+    "consejo": "Revisá tus finanzas. No se trata solo de tener, sino de saber administrar.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "uruz",
+    "nombre": "Uruz",
+    "simbolo": "ᚢ",
+    "aett": 1,
+    "significado": "Fuerza, resistencia, potencial salvaje",
+    "significado_detallado": "Salud física y determinación. La fuerza bruta que supera obstáculos.",
+    "consejo": "Hacé ejercicio o conectá con la naturaleza para canalizar tu fuerza.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "thurisaz",
+    "nombre": "Thurisaz",
+    "simbolo": "ᚦ",
+    "aett": 1,
+    "significado": "Protección, conflicto, desafío",
+    "significado_detallado": "Fuerza defensiva ante la adversidad. El gigante que protege o ataca.",
+    "consejo": "No evites el conflicto necesario. Establecé límites claros.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "ansuz",
+    "nombre": "Ansuz",
+    "simbolo": "ᚨ",
+    "aett": 1,
+    "significado": "Comunicación, sabiduría, mensajes divinos",
+    "significado_detallado": "Inspiración y palabra. La voz de Odín que trae conocimiento.",
+    "consejo": "Escribí o hablá sobre lo que te preocupa. Las palabras tienen poder.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "raidho",
+    "nombre": "Raidho",
+    "simbolo": "ᚱ",
+    "aett": 1,
+    "significado": "Viaje, movimiento, ritmo",
+    "significado_detallado": "Cambio de rumbo. El camino que se recorre tanto física como espiritualmente.",
+    "consejo": "Planificá un viaje o cambiá tu rutina. El movimiento desbloquea energía.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "kenaz",
+    "nombre": "Kenaz",
+    "simbolo": "ᚲ",
+    "aett": 1,
+    "significado": "Antorcha, transformación, creatividad",
+    "significado_detallado": "Luz interior y claridad. El fuego que ilumina y transforma.",
+    "consejo": "Dedicá tiempo a un proyecto creativo. La creatividad sana.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "gebo",
+    "nombre": "Gebo",
+    "simbolo": "ᚷ",
+    "aett": 1,
+    "significado": "Regalo, intercambio, generosidad",
+    "significado_detallado": "Equilibrio y unión. El don que se da y se recibe en igualdad.",
+    "consejo": "Ofrecé ayuda desinteresada. La generosidad vuelve multiplicada.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "wunjo",
+    "nombre": "Wunjo",
+    "simbolo": "ᚹ",
+    "aett": 1,
+    "significado": "Alegría, armonía, éxito",
+    "significado_detallado": "Plenitud emocional. La satisfacción de vivir en armonía.",
+    "consejo": "Celebrá con quienes querés. La alegría compartida se expande.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "hagalaz",
+    "nombre": "Hagalaz",
+    "simbolo": "ᚺ",
+    "aett": 2,
+    "significado": "Disrupción, crisis, poder de la naturaleza",
+    "significado_detallado": "Cambio involuntario pero necesario. La tormenta que limpia y renueva.",
+    "consejo": "Aceptá que hay cosas fuera de tu control. Soltar es parte del proceso.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "nauthiz",
+    "nombre": "Nauthiz",
+    "simbolo": "ᚾ",
+    "aett": 2,
+    "significado": "Necesidad, limitación, angustia",
+    "significado_detallado": "Superación a través de la paciencia. La restricción que enseña.",
+    "consejo": "Identificá cuál es tu necesidad real detrás de la urgencia.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "isa",
+    "nombre": "Isa",
+    "simbolo": "ᛁ",
+    "aett": 2,
+    "significado": "Hielo, quietud, estancamiento",
+    "significado_detallado": "Tiempo de reflexión y espera. El hielo que detiene para observar.",
+    "consejo": "Tomate un tiempo a solas. La reflexión en silencio trae claridad.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "jera",
+    "nombre": "Jera",
+    "simbolo": "ᛃ",
+    "aett": 2,
+    "significado": "Cosecha, ciclo, recompensa por trabajo",
+    "significado_detallado": "Paciencia da sus frutos. El ciclo natural de siembra y cosecha.",
+    "consejo": "Paciencia. No apresures los procesos naturales, todo llega.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "eihwaz",
+    "nombre": "Eihwaz",
+    "simbolo": "ᛇ",
+    "aett": 2,
+    "significado": "Transición, transformación, muerte y renacimiento",
+    "significado_detallado": "Resistencia interior. El abeto que conecta cielo y tierra.",
+    "consejo": "Dejá ir lo que ya no te sirve. El cambio duele pero libera.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "perthro",
+    "nombre": "Perthro",
+    "simbolo": "ᛈ",
+    "aett": 2,
+    "significado": "Misterio, destino, azar, conocimiento oculto",
+    "significado_detallado": "Lo inesperado. El cubo de dados que revela el destino.",
+    "consejo": "Prestá atención a las coincidencias. El universo te habla.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "algiz",
+    "nombre": "Algiz",
+    "simbolo": "ᛉ",
+    "aett": 2,
+    "significado": "Protección, conexión espiritual, alerta",
+    "significado_detallado": "Guía superior y defensa. El ciervo que protege del peligro.",
+    "consejo": "Conectá con tu práctica espiritual. Meditación o naturaleza.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "sowilo",
+    "nombre": "Sowilo",
+    "simbolo": "ᛋ",
+    "aett": 2,
+    "significado": "Sol, éxito, totalidad, fuerza vital",
+    "significado_detallado": "Victoria y realización. El sol que todo lo ilumina.",
+    "consejo": "Mostrate al mundo con confianza. Tu luz es necesaria.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "tiwaz",
+    "nombre": "Tiwaz",
+    "simbolo": "ᛏ",
+    "aett": 3,
+    "significado": "Sacrificio, honor, coraje, voluntad",
+    "significado_detallado": "Justicia y determinación. La flecha que apunta al目标 correcto.",
+    "consejo": "Defendé lo que es justo, aunque sea difícil. Vale la pena.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "berkano",
+    "nombre": "Berkano",
+    "simbolo": "ᛒ",
+    "aett": 3,
+    "significado": "Abedul, nacimiento, fertilidad",
+    "significado_detallado": "Nuevos comienzos y crecimiento. El árbol que renace cada primavera.",
+    "consejo": "Empezá ese proyecto que postergás. Es momento de nutrir ideas nuevas.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "ehwaz",
+    "nombre": "Ehwaz",
+    "simbolo": "ᛖ",
+    "aett": 3,
+    "significado": "Caballo, movimiento, trabajo en equipo",
+    "significado_detallado": "Confianza y progreso conjunto. El caballo que comparte el camino.",
+    "consejo": "Buscá alianzas. No hace falta que hagas todo solx.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "mannaz",
+    "nombre": "Mannaz",
+    "simbolo": "ᛗ",
+    "aett": 3,
+    "significado": "Humanidad, el ser, orden social",
+    "significado_detallado": "Potencial personal y relaciones. El yo que se relaciona con los demás.",
+    "consejo": "Practicá autoconocimiento. Un diario o terapia pueden ayudar.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "laguz",
+    "nombre": "Laguz",
+    "simbolo": "ᛚ",
+    "aett": 3,
+    "significado": "Agua, intuición, flujo emocional",
+    "significado_detallado": "El inconsciente y la sabiduría interior. El río que fluye sin obstáculos.",
+    "consejo": "Escuchá más tu intuición que la lógica. El corazón sabe.",
+    "simetrica": false,
+    "invertible": true
+  },
+  {
+    "id": "ingwaz",
+    "nombre": "Ingwaz",
+    "simbolo": "ᛝ",
+    "aett": 3,
+    "significado": "Semilla, gestación, crecimiento interno",
+    "significado_detallado": "Ciclo completado, potencial latente. La semilla que guarda el árbol futuro.",
+    "consejo": "Confiá en el proceso aunque no veas resultados. Está sucediendo.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "dagaz",
+    "nombre": "Dagaz",
+    "simbolo": "ᛞ",
+    "aett": 3,
+    "significado": "Día, amanecer, avance, transformación",
+    "significado_detallado": "Iluminación y breakthroughs. El amanecer que trae nuevas posibilidades.",
+    "consejo": "Preparate para un cambio grande. Viene algo transformador.",
+    "simetrica": true,
+    "invertible": false
+  },
+  {
+    "id": "othala",
+    "nombre": "Othala",
+    "simbolo": "ᛟ",
+    "aett": 3,
+    "significado": "Herencia, ascendencia, hogar",
+    "significado_detallado": "Propiedad duradera y tradición. Las raíces que nos sostienen.",
+    "consejo": "Conectá con tu familia o tus raíces. Honrar el pasado fortalece.",
+    "simetrica": false,
+    "invertible": true
+  }
 ]
-}

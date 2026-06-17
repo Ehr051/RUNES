@@ -1,0 +1,27 @@
+{
+  "name": "Nova Runas — Aprendé Runas Vikingas",
+  "short_name": "Nova Runas",
+  "description": "App para aprender las 24 runas del Elder Futhark. Estilo nórdico con personalidad.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1119",
+  "theme_color": "#0f1119",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "lifestyle"],
+  "lang": "es",
+  "dir": "ltr"
+}

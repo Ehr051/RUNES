@@ -1,0 +1,525 @@
+[
+  {
+    "id": "leccion-1-1",
+    "titulo": "Primeros Pasos",
+    "descripcion": "Conocé las primeras runas del Elder Futhark",
+    "aett": 1,
+    "runas_ids": ["fehu", "uruz", "thurisaz", "ansuz"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "fehu",
+        "opciones": ["Fehu", "Uruz", "Ansuz", "Kenaz"],
+        "correcta": 0
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "uruz",
+        "opciones": ["Thurisaz", "Uruz", "Fehu", "Raidho"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Fehu?",
+        "runa_id": "fehu",
+        "opciones": ["Fuerza y resistencia", "Riqueza y prosperidad", "Comunicación y sabiduría", "Protección y conflicto"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Thurisaz?",
+        "runa_id": "thurisaz",
+        "opciones": ["Viaje y movimiento", "Antorcha y creatividad", "Protección y conflicto", "Alegría y armonía"],
+        "correcta": 2
+      },
+      {
+        "tipo": "asociar-simbolo",
+        "instruccion": "Asociá cada runa con su símbolo",
+        "pares": [
+          {"runa_id": "fehu", "simbolo": "ᚠ"},
+          {"runa_id": "uruz", "simbolo": "ᚢ"},
+          {"runa_id": "thurisaz", "simbolo": "ᚦ"},
+          {"runa_id": "ansuz", "simbolo": "ᚨ"}
+        ]
+      },
+      {
+        "tipo": "completar-frase",
+        "instruccion": "Completá: Fehu representa ___ y prosperidad",
+        "respuesta_correcta": "riqueza",
+        "pista": "Empieza con 'r'"
+      }
+    ]
+  },
+  {
+    "id": "leccion-1-2",
+    "titulo": "Segundo Grupo",
+    "descripcion": "Seguimos con más runas de la Aett de Freyr",
+    "aett": 1,
+    "runas_ids": ["raidho", "kenaz", "gebo", "wunjo"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "kenaz",
+        "opciones": ["Raidho", "Kenaz", "Gebo", "Wunjo"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "gebo",
+        "opciones": ["Gebo", "Ansuz", "Fehu", "Raidho"],
+        "correcta": 0
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Gebo?",
+        "runa_id": "gebo",
+        "opciones": ["Alegría y éxito", "Regalo y generosidad", "Viaje y movimiento", "Antorcha y creatividad"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Wunjo?",
+        "runa_id": "wunjo",
+        "opciones": ["Fuerza y resistencia", "Comunicación y sabiduría", "Alegría y armonía", "Protección y conflicto"],
+        "correcta": 2
+      },
+      {
+        "tipo": "clase-runa",
+        "instruccion": "¿De qué aett es esta runa?",
+        "runa_id": "kenaz",
+        "opciones": ["Aett de Freyr (1)", "Aett de Heimdall (2)", "Aett de Tyr (3)"],
+        "correcta": 0
+      },
+      {
+        "tipo": "verdadero-falso",
+        "instruccion": "Gebo es una runa simétrica",
+        "respuesta_correcta": true,
+        "explicacion": "Correcto: Gebo (ᚷ) es simétrica y siempre se lee igual"
+      }
+    ]
+  },
+  {
+    "id": "leccion-1-3",
+    "titulo": "Aett de Freyr Completa",
+    "descripcion": "Repasá todas las runas de la primera aett",
+    "aett": 1,
+    "runas_ids": ["fehu", "uruz", "thurisaz", "ansuz", "raidho", "kenaz", "gebo", "wunjo"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "raidho",
+        "opciones": ["Ansuz", "Raidho", "Kenaz", "Thurisaz"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "wunjo",
+        "opciones": ["Gebo", "Wunjo", "Kenaz", "Fehu"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Ansuz?",
+        "runa_id": "ansuz",
+        "opciones": ["Fuerza y resistencia", "Viaje y movimiento", "Comunicación y sabiduría", "Alegría y armonía"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Kenaz?",
+        "runa_id": "kenaz",
+        "opciones": ["Regalo y generosidad", "Antorcha y creatividad", "Protección y conflicto", "Riqueza y prosperidad"],
+        "correcta": 1
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuáles de estas runas son simétricas?",
+        "opciones": ["Solo Gebo", "Gebo y Kenaz", "Solo Wunjo", "Ninguna"],
+        "correcta": 0,
+        "explicacion": "Solo Gebo (ᚷ) es simétrica en esta aett"
+      },
+      {
+        "tipo": "ordenar",
+        "instruccion": "Ordená estas runas según su posición en el Elder Futhark",
+        "elementos": ["Fehu", "Uruz", "Thurisaz", "Ansuz"],
+        "orden_correcto": ["Fehu", "Uruz", "Thurisaz", "Ansuz"]
+      },
+      {
+        "tipo": "completar-frase",
+        "instruccion": "Completá: La Aett de Freyr contiene ___ runas",
+        "respuesta_correcta": "ocho",
+        "pista": "Número del 1 al 10"
+      }
+    ]
+  },
+  {
+    "id": "leccion-2-1",
+    "titulo": "Aett de Heimdall I",
+    "descripcion": "Primeras runas de la segunda aett",
+    "aett": 2,
+    "runas_ids": ["hagalaz", "nauthiz", "isa", "jera"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "hagalaz",
+        "opciones": ["Hagalaz", "Nauthiz", "Isa", "Jera"],
+        "correcta": 0
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "isa",
+        "opciones": ["Nauthiz", "Isa", "Hagalaz", "Perthro"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Hagalaz?",
+        "runa_id": "hagalaz",
+        "opciones": ["Hielo y quietud", "Disrupción y crisis", "Cosecha y ciclo", "Necesidad y limitación"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Jera?",
+        "runa_id": "jera",
+        "opciones": ["Misterio y destino", "Transición y transformación", "Cosecha y ciclo", "Protección espiritual"],
+        "correcta": 2
+      },
+      {
+        "tipo": "clase-runa",
+        "instruccion": "¿De qué aett es esta runa?",
+        "runa_id": "hagalaz",
+        "opciones": ["Aett de Freyr (1)", "Aett de Heimdall (2)", "Aett de Tyr (3)"],
+        "correcta": 1
+      },
+      {
+        "tipo": "verdadero-falso",
+        "instruccion": "Isa es una runa simétrica",
+        "respuesta_correcta": true,
+        "explicacion": "Correcto: Isa (ᛁ) es simétrica y siempre se lee igual"
+      }
+    ]
+  },
+  {
+    "id": "leccion-2-2",
+    "titulo": "Aett de Heimdall II",
+    "descripcion": "Segundo grupo de la segunda aett",
+    "aett": 2,
+    "runas_ids": ["eihwaz", "perthro", "algiz", "sowilo"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "perthro",
+        "opciones": ["Eihwaz", "Perthro", "Algiz", "Sowilo"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "algiz",
+        "opciones": ["Sowilo", "Perthro", "Algiz", "Eihwaz"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Algiz?",
+        "runa_id": "algiz",
+        "opciones": ["Transición y transformación", "Misterio y destino", "Protección espiritual", "Sol y éxito"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Sowilo?",
+        "runa_id": "sowilo",
+        "opciones": ["Hielo y quietud", "Sol y éxito", "Necesidad y limitación", "Cosecha y ciclo"],
+        "correcta": 1
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuáles de estas runas son simétricas?",
+        "opciones": ["Eihwaz y Perthro", "Algiz y Sowilo", "Solo Perthro", "Todas son simétricas"],
+        "correcta": 1,
+        "explicacion": "Algiz (ᛉ) y Sowilo (ᛋ) son simétricas"
+      },
+      {
+        "tipo": "verdadero-falso",
+        "instruccion": "Perthro es una runa simétrica",
+        "respuesta_correcta": false,
+        "explicacion": "Perthro (ᛈ) NO es simétrica, puede caer invertida"
+      }
+    ]
+  },
+  {
+    "id": "leccion-2-3",
+    "titulo": "Aett de Heimdall Completa",
+    "descripcion": "Repasá todas las runas de la segunda aett",
+    "aett": 2,
+    "runas_ids": ["hagalaz", "nauthiz", "isa", "jera", "eihwaz", "perthro", "algiz", "sowilo"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "nauthiz",
+        "opciones": ["Hagalaz", "Nauthiz", "Isa", "Eihwaz"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "eihwaz",
+        "opciones": ["Perthro", "Sowilo", "Eihwaz", "Algiz"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Nauthiz?",
+        "runa_id": "nauthiz",
+        "opciones": ["Disrupción y crisis", "Necesidad y limitación", "Hielo y quietud", "Protección espiritual"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Perthro?",
+        "runa_id": "perthro",
+        "opciones": ["Cosecha y ciclo", "Transición y transformación", "Misterio y destino", "Sol y éxito"],
+        "correcta": 2
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuántas runas simétricas tiene la Aett de Heimdall?",
+        "opciones": ["2", "3", "4", "5"],
+        "correcta": 2,
+        "explicacion": "Isa, Jera, Eihwaz, Algiz y Sowilo = 5 runas simétricas"
+      },
+      {
+        "tipo": "ordenar",
+        "instruccion": "Ordená estas runas según su posición en el Elder Futhark",
+        "elementos": ["Hagalaz", "Nauthiz", "Isa", "Jera"],
+        "orden_correcto": ["Hagalaz", "Nauthiz", "Isa", "Jera"]
+      }
+    ]
+  },
+  {
+    "id": "leccion-3-1",
+    "titulo": "Aett de Tyr I",
+    "descripcion": "Primeras runas de la tercera aett",
+    "aett": 3,
+    "runas_ids": ["tiwaz", "berkano", "ehwaz", "mannaz"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "tiwaz",
+        "opciones": ["Tiwaz", "Berkano", "Ehwaz", "Mannaz"],
+        "correcta": 0
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "berkano",
+        "opciones": ["Mannaz", "Berkano", "Tiwaz", "Laguz"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Tiwaz?",
+        "runa_id": "tiwaz",
+        "opciones": ["Nacimiento y fertilidad", "Sacrificio y honor", "Trabajo en equipo", "Humanidad y ser"],
+        "correcta": 1
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Mannaz?",
+        "runa_id": "mannaz",
+        "opciones": ["Caballo y movimiento", "Abedul y nacimiento", "Humanidad y ser", "Agua e intuición"],
+        "correcta": 2
+      },
+      {
+        "tipo": "clase-runa",
+        "instruccion": "¿De qué aett es esta runa?",
+        "runa_id": "tiwaz",
+        "opciones": ["Aett de Freyr (1)", "Aett de Heimdall (2)", "Aett de Tyr (3)"],
+        "correcta": 2
+      },
+      {
+        "tipo": "verdadero-falso",
+        "instruccion": "Berkano es una runa simétrica",
+        "respuesta_correcta": false,
+        "explicacion": "Berkano (ᛒ) NO es simétrica, puede caer invertida"
+      }
+    ]
+  },
+  {
+    "id": "leccion-3-2",
+    "titulo": "Aett de Tyr II",
+    "descripcion": "Segundo grupo de la tercera aett",
+    "aett": 3,
+    "runas_ids": ["laguz", "ingwaz", "dagaz", "othala"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "laguz",
+        "opciones": ["Mannaz", "Laguz", "Ingwaz", "Dagaz"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "dagaz",
+        "opciones": ["Ingwaz", "Othala", "Dagaz", "Laguz"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Laguz?",
+        "runa_id": "laguz",
+        "opciones": ["Semilla y gestación", "Día y amanecer", "Agua e intuición", "Herencia y hogar"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Othala?",
+        "runa_id": "othala",
+        "opciones": ["Agua e intuición", "Semilla y gestación", "Día y amanecer", "Herencia y hogar"],
+        "correcta": 3
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuáles de estas runas son simétricas?",
+        "opciones": ["Laguz y Ingwaz", "Ingwaz y Dagaz", "Solo Dagaz", "Todas son simétricas"],
+        "correcta": 1,
+        "explicacion": "Ingwaz (ᛝ) y Dagaz (ᛞ) son simétricas"
+      },
+      {
+        "tipo": "verdadero-falso",
+        "instruccion": "Laguz es una runa simétrica",
+        "respuesta_correcta": false,
+        "explicacion": "Laguz (ᛚ) NO es simétrica, puede caer invertida"
+      }
+    ]
+  },
+  {
+    "id": "leccion-3-3",
+    "titulo": "Aett de Tyr Completa",
+    "descripcion": "Repasá todas las runas de la tercera aett",
+    "aett": 3,
+    "runas_ids": ["tiwaz", "berkano", "ehwaz", "mannaz", "laguz", "ingwaz", "dagaz", "othala"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "ehwaz",
+        "opciones": ["Berkano", "Ehwaz", "Mannaz", "Tiwaz"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "ingwaz",
+        "opciones": ["Laguz", "Dagaz", "Ingwaz", "Othala"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Ehwaz?",
+        "runa_id": "ehwaz",
+        "opciones": ["Sacrificio y honor", "Abedul y nacimiento", "Caballo y movimiento", "Humanidad y ser"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Dagaz?",
+        "runa_id": "dagaz",
+        "opciones": ["Semilla y gestación", "Día y amanecer", "Agua e intuición", "Herencia y hogar"],
+        "correcta": 1
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuántas runas simétricas tiene la Aett de Tyr?",
+        "opciones": ["1", "2", "3", "4"],
+        "correcta": 1,
+        "explicacion": "Ingwaz y Dagaz = 2 runas simétricas"
+      },
+      {
+        "tipo": "ordenar",
+        "instruccion": "Ordená estas runas según su posición en el Elder Futhark",
+        "elementos": ["Tiwaz", "Berkano", "Ehwaz", "Mannaz"],
+        "orden_correcto": ["Tiwaz", "Berkano", "Ehwaz", "Mannaz"]
+      }
+    ]
+  },
+  {
+    "id": "leccion-master",
+    "titulo": "Maestro de Runas",
+    "descripcion": "El desafío final: todas las 24 runas del Elder Futhark",
+    "aett": 0,
+    "runas_ids": ["fehu", "uruz", "thurisaz", "ansuz", "raidho", "kenaz", "gebo", "wunjo", "hagalaz", "nauthiz", "isa", "jera", "eihwaz", "perthro", "algiz", "sowilo", "tiwaz", "berkano", "ehwaz", "mannaz", "laguz", "ingwaz", "dagaz", "othala"],
+    "ejercicios": [
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "kenaz",
+        "opciones": ["Raidho", "Kenaz", "Gebo", "Wunjo"],
+        "correcta": 1
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "algiz",
+        "opciones": ["Sowilo", "Perthro", "Algiz", "Eihwaz"],
+        "correcta": 2
+      },
+      {
+        "tipo": "identificar-runa",
+        "instruccion": "¿Qué runa es esta?",
+        "runa_id": "dagaz",
+        "opciones": ["Ingwaz", "Othala", "Dagaz", "Laguz"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué significa Perthro?",
+        "runa_id": "perthro",
+        "opciones": ["Cosecha y ciclo", "Transición y transformación", "Misterio y destino", "Sol y éxito"],
+        "correcta": 2
+      },
+      {
+        "tipo": "significado-runa",
+        "instruccion": "¿Qué representa Othala?",
+        "runa_id": "othala",
+        "opciones": ["Agua e intuición", "Semilla y gestación", "Día y amanecer", "Herencia y hogar"],
+        "correcta": 3
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuántas runas simétricas hay en total en el Elder Futhark?",
+        "opciones": ["5", "6", "7", "8"],
+        "correcta": 2,
+        "explicacion": "Gebo, Isa, Jera, Eihwaz, Algiz, Sowilo, Ingwaz, Dagaz = 8 runas simétricas"
+      },
+      {
+        "tipo": "multiple-choice",
+        "instruccion": "¿Cuántas aettir tiene el Elder Futhark?",
+        "opciones": ["2", "3", "4", "5"],
+        "correcta": 1,
+        "explicacion": "El Elder Futhark tiene 3 aettir de 8 runas cada una"
+      },
+      {
+        "tipo": "ordenar",
+        "instruccion": "Ordená las aettir según el orden correcto",
+        "elementos": ["Aett de Tyr", "Aett de Freyr", "Aett de Heimdall"],
+        "orden_correcto": ["Aett de Freyr", "Aett de Heimdall", "Aett de Tyr"]
+      }
+    ]
+  }
+]
