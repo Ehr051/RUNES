@@ -997,9 +997,10 @@ function mostrarEjercicio() {
       container.innerHTML = `
         <div class="ejercicio-tipo">Asociar</div>
         <h2 class="ejercicio-instruccion">${ej.instruccion}</h2>
+        <p class="ejercicio-hint">Tocá un nombre, luego tocá su símbolo</p>
         <div class="asociar-container">
           <div class="asociar-runas">
-            ${ej.pares.map(p=>{const r=RUNAS.find(x=>x.id===p.runa_id);return`<div class="asociar-runa" data-runaid="${p.runa_id}">${r.nombre}</div>`;}).join('')}
+            ${ej.pares.map(p=>{const r=RUNAS.find(x=>x.id===p.runa_id);return`<div class="asociar-runa" data-runaid="${p.runa_id}" onclick="selectAsociarRuna(this)">${r.nombre}</div>`;}).join('')}
           </div>
           <div class="asociar-simbolos">
             ${mezclados.map(p=>`<div class="asociar-simbolo" data-runaid="${p.runa_id}" onclick="asociarSimbolo(this)">${p.simbolo}</div>`).join('')}
@@ -1066,30 +1067,40 @@ function checkVF(btn, valor, correcto) {
   document.getElementById('btn-siguiente').disabled = false;
 }
 
-function asociarSimbolo(el) {
-  const runaid = el.dataset.runaid;
+function selectAsociarRuna(el) {
+  // Deselect all names first
+  document.querySelectorAll('.asociar-runa').forEach(r => r.classList.remove('seleccionado'));
   el.classList.add('seleccionado');
+  window._asociacionRuna = el.dataset.runaid;
+}
 
-  if (window._asociacionRuna) {
-    const correcto = window._asociacionRuna === runaid;
-    const container = document.getElementById('ejercicio-contenido');
-    if (correcto) {
-      el.classList.add('correcta');
-      container.querySelector(`.asociar-runa[data-runaid="${window._asociacionRuna}"]`)?.classList.add('correcta');
-      respuestasCorrectas++;
-      xpGanados += 10;
-      AudioManager.playSfx('correct');
-    } else {
-      el.classList.add('incorrecta');
-      container.querySelector(`.asociar-runa[data-runaid="${window._asociacionRuna}"]`)?.classList.add('incorrecta');
-      AudioManager.playSfx('incorrect');
-    }
-    window._asociacionRuna = null;
-    document.getElementById('ejercicio-xp-actual').textContent = `+${xpGanados} XP`;
-    document.getElementById('btn-siguiente').disabled = false;
-  } else {
-    window._asociacionRuna = runaid;
+function asociarSimbolo(el) {
+  if (!window._asociacionRuna) {
+    showFeedback(false, 'Primero tocá un nombre de runa');
+    return;
   }
+
+  const runaid = el.dataset.runaid;
+  const correcto = window._asociacionRuna === runaid;
+  const container = document.getElementById('ejercicio-contenido');
+
+  if (correcto) {
+    el.classList.add('correcta');
+    container.querySelector(`.asociar-runa[data-runaid="${window._asociacionRuna}"]`)?.classList.add('correcta');
+    container.querySelector(`.asociar-runa[data-runaid="${window._asociacionRuna}"]`)?.classList.remove('seleccionado');
+    respuestasCorrectas++;
+    xpGanados += 10;
+    AudioManager.playSfx('correct');
+  } else {
+    el.classList.add('incorrecta');
+    container.querySelector(`.asociar-runa[data-runaid="${window._asociacionRuna}"]`)?.classList.add('incorrecta');
+    container.querySelector(`.asociar-runa[data-runaid="${window._asociacionRuna}"]`)?.classList.remove('seleccionado');
+    AudioManager.playSfx('incorrect');
+  }
+
+  window._asociacionRuna = null;
+  document.getElementById('ejercicio-xp-actual').textContent = `+${xpGanados} XP`;
+  document.getElementById('btn-siguiente').disabled = false;
 }
 
 function checkCompletar(ej) {

@@ -1981,9 +1981,10 @@ body::before {
 .asociar-runa { font-size: 0.85rem; }
 .asociar-simbolo { font-size: 1.6rem; }
 
-.asociar-simbolo.seleccionado {
+.asociar-runa.seleccionado, .asociar-simbolo.seleccionado {
   border-color: var(--gold);
   background: var(--gold-subtle);
+  box-shadow: 0 0 15px rgba(201,168,76,0.3);
 }
 
 .asociar-runa.correcta, .asociar-simbolo.correcta {
