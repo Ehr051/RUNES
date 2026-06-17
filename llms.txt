@@ -1,0 +1,16 @@
+# Runas — Aprendé las 24 Runas del Elder Futhark
+
+App gratuita para aprender las runas nórdicas con ejercicios interactivos.
+
+## Sobre la app
+
+- 24 runas del Elder Futhark con significados detallados
+- Ejercicios interactivos de identificación y significado
+- Tiradas de runas con interpretaciones
+- Desafío diario con racha
+- Modo práctica para repasar
+
+## Enlaces
+
+- [Página principal](https://runes-90d8b.web.app/)
+- [Referencia de runas](https://runes-90d8b.web.app/#referencia)

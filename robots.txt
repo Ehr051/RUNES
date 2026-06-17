@@ -1,0 +1,6 @@
+# robots.txt for Runas — Elder Futhark
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://runes-90d8b.web.app/sitemap.xml
