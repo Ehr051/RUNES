@@ -384,10 +384,13 @@ function loadProgreso() {
 }
 
 // ── Firebase Auth ────────────────────────────────────────────
+let _authInitialized = false;
+
 function initAuth() {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       currentUser = user;
+      _authInitialized = true;
       // Load from Firestore
       try {
         const doc = await db.collection('users').doc(user.uid).get();
@@ -396,17 +399,26 @@ function initAuth() {
         } else {
           progreso = defaultProgreso();
           progreso.nombre = user.displayName || 'Guerrero';
+          // Save new user to Firestore
+          await db.collection('users').doc(user.uid).set(progreso);
         }
       } catch(e) {
+        console.error('Firestore error:', e);
         progreso = loadProgreso();
+        if (!progreso.nombre || progreso.nombre === 'Guerrero') {
+          progreso.nombre = user.displayName || 'Guerrero';
+        }
       }
       localStorage.setItem('nova_progreso', JSON.stringify(progreso));
       afterLogin();
       loadDiarioFromFirestore();
     } else {
       currentUser = null;
-      progreso = loadProgreso();
-      showScreen('login');
+      // Only show login if auth was initialized and user is truly logged out
+      if (_authInitialized) {
+        progreso = loadProgreso();
+        showScreen('login');
+      }
     }
   });
 }
@@ -414,7 +426,7 @@ function initAuth() {
 async function loginWithEmail(email, password) {
   try {
     await auth.signInWithEmailAndPassword(email, password);
-    showToast('¡Bienvenido de vuelta!', 'success');
+    // Navigation handled by onAuthStateChanged
   } catch(e) {
     showToast(getAuthError(e.code), 'error');
   }
@@ -427,7 +439,7 @@ async function registerWithEmail(name, email, password) {
     progreso = defaultProgreso();
     progreso.nombre = name;
     await db.collection('users').doc(cred.user.uid).set(progreso);
-    showToast('¡Cuenta creada!', 'success');
+    // Navigation handled by onAuthStateChanged
   } catch(e) {
     showToast(getAuthError(e.code), 'error');
   }
