@@ -493,10 +493,18 @@ function afterLogin() {
   }
 
   AudioManager.init();
-  if (progreso.isPremium) {
-    AudioManager.playMusic();
-  }
   scheduleDailyRune();
+
+  // Start music after first user interaction (browser policy)
+  const startMusicOnInteraction = () => {
+    if (AudioManager.musicEnabled) {
+      AudioManager.playMusic();
+    }
+    document.removeEventListener('click', startMusicOnInteraction);
+    document.removeEventListener('touchstart', startMusicOnInteraction);
+  };
+  document.addEventListener('click', startMusicOnInteraction, { once: true });
+  document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
 }
 
 // ── Onboarding ───────────────────────────────────────────────
