@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0f1119">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="App para aprender las 24 runas del Elder Futhark. Estilo nórdico con personalidad.">
@@ -40,21 +41,21 @@
 
       <div id="login-form-container">
         <!-- Login con email -->
-        <div id="login-email-section" class="login-section">
+        <form id="login-email-section" class="login-section" onsubmit="return false;">
           <input type="email" id="login-email" class="login-input" placeholder="Correo electrónico" autocomplete="email">
           <input type="password" id="login-password" class="login-input" placeholder="Contraseña" autocomplete="current-password">
-          <button class="btn-primary btn-full" id="btn-login-email">Entrar</button>
-          <button class="btn-text" id="btn-show-register">¿No tenés cuenta? Creá una</button>
-        </div>
+          <button type="submit" class="btn-primary btn-full" id="btn-login-email">Entrar</button>
+          <button type="button" class="btn-text" id="btn-show-register">¿No tenés cuenta? Creá una</button>
+        </form>
 
         <!-- Registro -->
-        <div id="register-section" class="login-section hidden">
+        <form id="register-section" class="login-section hidden" onsubmit="return false;">
           <input type="text" id="register-name" class="login-input" placeholder="Tu nombre de guerrero/a">
           <input type="email" id="register-email" class="login-input" placeholder="Correo electrónico">
           <input type="password" id="register-password" class="login-input" placeholder="Contraseña (mínimo 6 caracteres)">
-          <button class="btn-primary btn-full" id="btn-register-email">Crear Cuenta</button>
-          <button class="btn-text" id="btn-show-login">¿Ya tenés cuenta? Entrá</button>
-        </div>
+          <button type="submit" class="btn-primary btn-full" id="btn-register-email">Crear Cuenta</button>
+          <button type="button" class="btn-text" id="btn-show-login">¿Ya tenés cuenta? Entrá</button>
+        </form>
 
         <div class="login-divider">
           <span>o</span>

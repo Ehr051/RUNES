@@ -1518,7 +1518,8 @@ body::before {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.6rem;
-  justify-items: center;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .medalla {
@@ -1531,8 +1532,6 @@ body::before {
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
-  width: 100%;
-  max-width: 100px;
 }
 
 .medalla::before {
@@ -2724,6 +2723,7 @@ body::before {
   .medallas-grid {
     grid-template-columns: repeat(6, 1fr);
     gap: 0.8rem;
+    max-width: 600px;
   }
 
   .perfil-seccion {
