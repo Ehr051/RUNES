@@ -4,12 +4,12 @@
 
 // ── Firebase Config ──────────────────────────────────────────
 const firebaseConfig = {
-  apiKey: "AIzaSyDEMO_KEY_REPLACE_ME",
-  authDomain: "nova-runas.firebaseapp.com",
-  projectId: "nova-runas",
-  storageBucket: "nova-runas.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:0000000000000000"
+  apiKey: "AIzaSyD00Hg_wAMADTnCZTxn94fNoRynvhpMLBU",
+  authDomain: "runes-90d8b.firebaseapp.com",
+  projectId: "runes-90d8b",
+  storageBucket: "runes-90d8b.firebasestorage.app",
+  messagingSenderId: "137879650199",
+  appId: "1:137879650199:web:1f2cda616e71f8475c4ed2"
 };
 
 // Init Firebase (compat mode)
