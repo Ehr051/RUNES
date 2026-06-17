@@ -170,18 +170,18 @@ const LECCIONES = [
 
 // ── Medallas ────────────────────────────────────────────────
 const MEDALLAS = [
-  { id:"primera", nombre:"Primer Paso", icono:"🌟", desc:"Completá tu primera lección", req:(p)=>p.leccionesCompletadas.length>=1 },
-  { id:"tres-lec", nombre:"Aprendiz", icono:"📚", desc:"3 lecciones completas", req:(p)=>p.leccionesCompletadas.length>=3 },
-  { id:"seis-lec", nombre:"Estudioso", icono:"🎓", desc:"6 lecciones completas", req:(p)=>p.leccionesCompletadas.length>=6 },
-  { id:"todas-lec", nombre:"Maestro", icono:"👑", desc:"Todas las lecciones", req:(p)=>p.leccionesCompletadas.length>=LECCIONES.length },
-  { id:"streak-3", nombre:"Constancia", icono:"🔥", desc:"3 días seguidos", req:(p)=>p.streak>=3 },
-  { id:"streak-7", nombre:"Dedicación", icono:"💪", desc:"7 días seguidos", req:(p)=>p.streak>=7 },
-  { id:"xp-100", nombre:"Centurión", icono:"⚡", desc:"100 XP", req:(p)=>p.xp>=100 },
-  { id:"xp-500", nombre:"Élite", icono:"💎", desc:"500 XP", req:(p)=>p.xp>=500 },
-  { id:"perfect", nombre:"Perfección", icono:"🎯", desc:"Lección sin errores", req:(p)=>p.perfectRuns>0 },
-  { id:"aett-1", nombre:"Hijo de Freyr", icono:"🌾", desc:"Dominá la Aett I", req:(p)=>p.aettCompletada?.[1] },
-  { id:"aett-2", nombre:"Guardián", icono:"🛡️", desc:"Dominá la Aett II", req:(p)=>p.aettCompletada?.[2] },
-  { id:"aett-3", nombre:"Guerrero", icono:"⚔️", desc:"Dominá la Aett III", req:(p)=>p.aettCompletada?.[3] }
+  { id:"primera", nombre:"Primera Runa", icono:"ᚠ", desc:"Completá tu primera lección", req:(p)=>p.leccionesCompletadas.length>=1 },
+  { id:"tres-lec", nombre:"Discípulo", icono:"ᚦ", desc:"3 lecciones completas", req:(p)=>p.leccionesCompletadas.length>=3 },
+  { id:"seis-lec", nombre:"Bardagi", icono:"ᚨ", desc:"6 lecciones completas", req:(p)=>p.leccionesCompletadas.length>=6 },
+  { id:"todas-lec", nombre:"Allsherjargoði", icono:"ᛟ", desc:"Todas las lecciones", req:(p)=>p.leccionesCompletadas.length>=LECCIONES.length },
+  { id:"streak-3", nombre:"Firmbolti", icono:"ᛋ", desc:"3 días seguidos", req:(p)=>p.streak>=3 },
+  { id:"streak-7", nombre:"Óðins Vakt", icono:"ᛉ", desc:"7 días seguidos", req:(p)=>p.streak>=7 },
+  { id:"xp-100", nombre:"Gagnraddir", icono:"ᛃ", desc:"100 XP", req:(p)=>p.xp>=100 },
+  { id:"xp-500", nombre:"Hersir", icono:"ᛏ", desc:"500 XP", req:(p)=>p.xp>=500 },
+  { id:"perfect", nombre:"Sigrún", icono:"ᛝ", desc:"Lección sin errores", req:(p)=>p.perfectRuns>0 },
+  { id:"aett-1", nombre:"Kyn Freys", icono:"ᚹ", desc:"Dominá la Aett I", req:(p)=>p.aettCompletada?.[1] },
+  { id:"aett-2", nombre:"Heimdallsvörðr", icono:"ᚺ", desc:"Dominá la Aett II", req:(p)=>p.aettCompletada?.[2] },
+  { id:"aett-3", nombre:"Týs Úlfheðinn", icono:"ᛒ", desc:"Dominá la Aett III", req:(p)=>p.aettCompletada?.[3] }
 ];
 
 // ── Audio Manager ────────────────────────────────────────────
@@ -436,10 +436,23 @@ async function registerWithEmail(name, email, password) {
 async function loginWithGoogle() {
   try {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await auth.signInWithPopup(provider);
-    showToast('¡Conectado con Google!', 'success');
+    await auth.signInWithRedirect(provider);
   } catch(e) {
     showToast(getAuthError(e.code), 'error');
+  }
+}
+
+// Handle redirect result on page load
+async function handleRedirectResult() {
+  try {
+    const result = await auth.getRedirectResult();
+    if (result.user) {
+      showToast('¡Conectado con Google!', 'success');
+    }
+  } catch(e) {
+    if (e.code !== 'auth/no-redirect-retrieval') {
+      showToast(getAuthError(e.code), 'error');
+    }
   }
 }
 
@@ -824,7 +837,7 @@ function renderPerfil() {
   document.getElementById('perfil-avatar-runa').textContent = runaEsp ? runaEsp.simbolo : 'ᛟ';
 
   const nivel = Math.floor(progreso.xp / 100) + 1;
-  const titulos = ['Novato','Aprendiz','Iniciado','Vidente','Sabio','Maestro','Gran Maestro','Sabio Ancestral','Vidente Supremo','Maestro Supremo'];
+  const titulos = ['Ulfhednar','Skald','Völva','Seidr','Goði','Hersir','Jarl','Konungr','Allsherjargoði','Ragnarök'];
   document.getElementById('perfil-titulo').textContent = titulos[Math.min(nivel-1, titulos.length-1)] + (progreso.isPremium?' ✦ Pro':'');
 
   document.getElementById('perfil-xp').textContent = progreso.xp;
@@ -1402,9 +1415,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Loading screen
   setTimeout(() => {
     document.getElementById('loading-screen').classList.add('hidden');
-  }, 1800);
+  }, 800);
 
   // Auth
+  handleRedirectResult();
   initAuth();
   initSettings();
 

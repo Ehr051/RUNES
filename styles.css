@@ -94,15 +94,15 @@ body::before {
 .floating-rune {
   position: absolute;
   font-size: clamp(1.5rem, 3vw, 3rem);
-  color: rgba(201, 168, 76, 0.12);
-  text-shadow: 0 0 12px rgba(201, 168, 76, 0.3), 0 0 30px rgba(201, 168, 76, 0.1);
+  color: rgba(201, 168, 76, 0.25);
+  text-shadow: 0 0 20px rgba(201, 168, 76, 0.6), 0 0 40px rgba(201, 168, 76, 0.3), 0 0 60px rgba(201, 168, 76, 0.15);
   animation: floatRune 20s linear infinite;
   will-change: transform;
 }
 
 .floating-runes.subtle .floating-rune {
-  color: rgba(201, 168, 76, 0.07);
-  text-shadow: 0 0 8px rgba(201, 168, 76, 0.2), 0 0 20px rgba(201, 168, 76, 0.08);
+  color: rgba(201, 168, 76, 0.12);
+  text-shadow: 0 0 12px rgba(201, 168, 76, 0.35), 0 0 25px rgba(201, 168, 76, 0.15);
   animation-duration: 30s;
 }
 
@@ -137,7 +137,7 @@ body::before {
   font-size: 4rem;
   color: var(--gold);
   animation: runeGlow 2s ease-in-out infinite, runeSpin 3s ease-in-out infinite;
-  text-shadow: 0 0 40px var(--gold-glow);
+  text-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(201,168,76,0.3);
 }
 
 .loading-text {
@@ -178,8 +178,8 @@ body::before {
 }
 
 @keyframes runeGlow {
-  0%, 100% { text-shadow: 0 0 20px var(--gold-glow); }
-  50% { text-shadow: 0 0 50px var(--gold-glow), 0 0 80px rgba(201,168,76,0.2); }
+  0%, 100% { text-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(201,168,76,0.2); }
+  50% { text-shadow: 0 0 60px var(--gold-glow), 0 0 100px rgba(201,168,76,0.35), 0 0 140px rgba(201,168,76,0.15); }
 }
 
 /* ── Screens ────────────────────────────────────────────────── */
@@ -247,7 +247,7 @@ body::before {
   font-size: 2.2rem;
   color: var(--gold);
   letter-spacing: 0.15em;
-  text-shadow: 0 0 40px var(--gold-glow);
+  text-shadow: 0 0 50px var(--gold-glow), 0 0 90px rgba(201,168,76,0.3);
   animation: runeGlow 4s ease-in-out infinite;
 }
 
@@ -606,7 +606,7 @@ body::before {
   font-size: clamp(1.8rem, 6vw, 2.8rem);
   color: var(--gold);
   letter-spacing: 0.15em;
-  text-shadow: 0 0 40px var(--gold-glow);
+  text-shadow: 0 0 50px var(--gold-glow), 0 0 90px rgba(201,168,76,0.3);
   animation: runeGlow 4s ease-in-out infinite;
   line-height: 1.2;
 }
@@ -1175,7 +1175,7 @@ body::before {
   color: var(--gold);
   display: block;
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 40px var(--gold-glow);
+  text-shadow: 0 0 50px var(--gold-glow), 0 0 90px rgba(201,168,76,0.3);
   animation: runeGlow 2s ease-in-out infinite;
 }
 
@@ -1428,6 +1428,10 @@ body::before {
 .perfil-hero {
   text-align: center;
   margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 100%);
+  border-radius: var(--radius);
+  border: 1px solid rgba(201,168,76,0.15);
 }
 
 .perfil-avatar {
@@ -1440,23 +1444,25 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 90px;
-  height: 90px;
-  background: var(--gold-subtle);
-  border: 2.5px solid var(--gold-dark);
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--gold-subtle) 0%, rgba(201,168,76,0.15) 100%);
+  border: 3px solid var(--gold-dark);
   border-radius: 50%;
-  box-shadow: 0 0 30px var(--gold-glow);
+  box-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(201,168,76,0.2);
+  animation: runeGlow 4s ease-in-out infinite;
 }
 
 .perfil-nombre {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
 }
 
 .perfil-titulo {
   color: var(--gold);
-  font-size: 0.85rem;
-  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  font-style: italic;
 }
 
 .perfil-stats-grid {
@@ -1472,20 +1478,29 @@ body::before {
   padding: 1rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+
+.perfil-stat-card:hover {
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 15px rgba(201,168,76,0.15);
 }
 
 .perfil-stat-valor {
   display: block;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--gold);
+  text-shadow: 0 0 10px rgba(201,168,76,0.3);
 }
 
 .perfil-stat-label {
   display: block;
   font-size: 0.7rem;
   color: var(--text-muted);
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .perfil-seccion {
@@ -1500,36 +1515,63 @@ body::before {
 
 .medallas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.8rem;
 }
 
 .medalla {
   text-align: center;
-  padding: 0.6rem 0.3rem;
+  padding: 0.8rem 0.4rem;
   background: var(--bg-card);
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   opacity: 0.35;
   transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.medalla::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(201,168,76,0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .medalla.obtenida {
   opacity: 1;
   border-color: var(--gold-dark);
   background: var(--gold-subtle);
+  box-shadow: 0 0 15px rgba(201,168,76,0.2);
+}
+
+.medalla.obtenida::before {
+  opacity: 1;
 }
 
 .medalla-icono {
   display: block;
-  font-size: 1.4rem;
-  margin-bottom: 0.2rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(201,168,76,0.5);
+}
+
+.medalla.obtenida .medalla-icono {
+  text-shadow: 0 0 15px rgba(201,168,76,0.7), 0 0 30px rgba(201,168,76,0.3);
 }
 
 .medalla-nombre {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
+  font-weight: 500;
+}
+
+.medalla.obtenida .medalla-nombre {
+  color: var(--gold);
 }
 
 .aett-progreso {
@@ -1763,7 +1805,7 @@ body::before {
   font-size: clamp(3.5rem, 12vw, 5.5rem);
   color: var(--gold);
   margin: 0.8rem 0;
-  text-shadow: 0 0 40px var(--gold-glow);
+  text-shadow: 0 0 50px var(--gold-glow), 0 0 90px rgba(201,168,76,0.3);
   animation: runeReveal 0.6s ease;
 }
 
@@ -2321,7 +2363,7 @@ body::before {
   color: var(--gold);
   display: block;
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 40px var(--gold-glow);
+  text-shadow: 0 0 50px var(--gold-glow), 0 0 90px rgba(201,168,76,0.3);
 }
 
 .modal-runa-nombre {
