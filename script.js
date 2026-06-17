@@ -1529,7 +1529,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Premium
   document.getElementById('btn-gumroad')?.addEventListener('click', () => {
-    window.open('https://YOUR_GUMROAD_LINK.gumroad.com/l/nova-runas-pro', '_blank');
+    window.open('https://exekiel2.gumroad.com/l/RUNES', '_blank');
   });
 
   // Enter key on login
