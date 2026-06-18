@@ -1560,7 +1560,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Premium - Open Gumroad checkout
   document.getElementById('btn-gumroad')?.addEventListener('click', () => {
-    window.open('https://exekiel2.gumroad.com/l/RUNES', '_blank');
+    window.open('https://exekielRua.gumroad.com/l/RUNES', '_blank');
   });
 
   // Manual Pro activation (for testing or after purchase)
