@@ -1558,10 +1558,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Premium
+  // Premium - Open Gumroad checkout
   document.getElementById('btn-gumroad')?.addEventListener('click', () => {
     window.open('https://exekiel2.gumroad.com/l/RUNES', '_blank');
   });
+
+  // Check for Gumroad purchase confirmation
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('purchase') === 'success') {
+    // Activate Pro
+    if (currentUser) {
+      progreso.isPremium = true;
+      saveProgreso();
+      // Save to Firestore
+      db.collection('users').doc(currentUser.uid).update({ isPremium: true }).catch(() => {});
+      showToast('¡Bienvenido a Pro! 🎉', 'success');
+      renderPerfil();
+    }
+    // Clean URL
+    window.history.replaceState({}, '', window.location.pathname);
+  }
 
   // Enter key on login
   document.getElementById('login-password')?.addEventListener('keypress', (e) => {
