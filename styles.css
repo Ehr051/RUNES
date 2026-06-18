@@ -1505,6 +1505,9 @@ body::before {
 
 .perfil-seccion {
   margin-bottom: 1.5rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .perfil-seccion h3 {
@@ -1624,6 +1627,8 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .opcion-btn {
