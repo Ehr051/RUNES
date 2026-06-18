@@ -1563,6 +1563,22 @@ document.addEventListener('DOMContentLoaded', () => {
     window.open('https://exekiel2.gumroad.com/l/RUNES', '_blank');
   });
 
+  // Manual Pro activation (for testing or after purchase)
+  document.getElementById('btn-activate-pro')?.addEventListener('click', () => {
+    if (confirm('¿Compraste RUNES Pro en Gumroad?')) {
+      if (currentUser) {
+        progreso.isPremium = true;
+        saveProgreso();
+        db.collection('users').doc(currentUser.uid).update({ isPremium: true }).catch(() => {});
+        showToast('¡Pro activado! 🎉', 'success');
+        renderPerfil();
+        document.getElementById('modal-premium')?.classList.add('hidden');
+      } else {
+        showToast('Logueate primero', 'error');
+      }
+    }
+  });
+
   // Check for Gumroad purchase confirmation
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('purchase') === 'success') {
