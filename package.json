@@ -1,0 +1,20 @@
+{
+  "name": "nova_runas_vikingas",
+  "version": "1.0.0",
+  "description": "App educativa tipo Duolingo para aprender las 24 runas del Elder Futhark. Estilo nórdico con personalidad propia.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ehr051/RUNES.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ehr051/RUNES/issues"
+  },
+  "homepage": "https://github.com/Ehr051/RUNES#readme"
+}

@@ -16,6 +16,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+const functions = firebase.functions();
 
 // ── Runas Data (enriquecida con correspondencias) ────────────
 const RUNAS = [
@@ -1564,9 +1565,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Manual Pro activation (for testing or after purchase)
-  document.getElementById('btn-activate-pro')?.addEventListener('click', () => {
+  document.getElementById('btn-activate-pro')?.addEventListener('click', async () => {
     if (confirm('¿Compraste RUNES Pro en Gumroad?')) {
       if (currentUser) {
+        // Check if there's a pending activation from Gumroad webhook
+        try {
+          const result = await functions.httpsCallable('checkPendingActivation')();
+          if (result.data.activated) {
+            progreso.isPremium = true;
+            saveProgreso();
+            showToast('¡Pro activado! 🎉', 'success');
+            renderPerfil();
+            document.getElementById('modal-premium')?.classList.add('hidden');
+            return;
+          }
+        } catch (e) {
+          console.log('Cloud Function check failed, activating locally');
+        }
+        
+        // Fallback: activate locally (for testing)
         progreso.isPremium = true;
         saveProgreso();
         db.collection('users').doc(currentUser.uid).update({ isPremium: true }).catch(() => {});
