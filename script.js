@@ -97,22 +97,22 @@ const LECCIONES = [
     { tipo:"identificar-runa", instruccion:"¿Qué runa es esta?", runa_id:"fehu", opciones:["Fehu","Uruz","Ansuz","Kenaz"], correcta:0 },
     { tipo:"identificar-runa", instruccion:"¿Qué runa es esta?", runa_id:"uruz", opciones:["Thurisaz","Uruz","Fehu","Raidho"], correcta:1 },
     { tipo:"significado-runa", instruccion:"¿Qué significa Fehu?", runa_id:"fehu", opciones:["Fuerza y resistencia","Riqueza y prosperidad","Comunicación y sabiduría","Protección y conflicto"], correcta:1 },
-    { tipo:"significado-runa", instruccion:"¿Qué representa Thurisaz?", runa_id:"thurisaz", opciones:["Viaje y movimiento","Antorcha y creatividad","Protección y conflicto","Alegría y armonía"], correcta:2 },
-    { tipo:"asociar-simbolo", instruccion:"Asociá cada runa con su símbolo", pares:[{runa_id:"fehu",simbolo:"ᚠ"},{runa_id:"uruz",simbolo:"ᚢ"},{runa_id:"thurisaz",simbolo:"ᚦ"},{runa_id:"ansuz",simbolo:"ᚨ"}] },
+    { tipo:"emparejar-runas", instruccion:"Emparejá cada runa con su nombre", runas_ids:["fehu","uruz","thurisaz","ansuz"], cantidad:4, subtipo:"nombre" },
+    { tipo:"memoria-nordica", instruccion:"Encontrá los pares de runa y nombre", runas_ids:["fehu","uruz","thurisaz","ansuz"], cantidad:3 },
     { tipo:"completar-frase", instruccion:"Completá: Fehu representa ___ y prosperidad", respuesta_correcta:"riqueza", pista:"Empieza con 'r'" }
   ]},
   { id:"l1-2", titulo:"Segundo Grupo", descripcion:"Más runas de la Aett de Freyr", aett:1, runas_ids:["raidho","kenaz","gebo","wunjo"], premium:false, ejercicios:[
     { tipo:"identificar-runa", instruccion:"¿Qué runa es esta?", runa_id:"kenaz", opciones:["Raidho","Kenaz","Gebo","Wunjo"], correcta:1 },
     { tipo:"identificar-runa", instruccion:"¿Qué runa es esta?", runa_id:"gebo", opciones:["Gebo","Ansuz","Fehu","Raidho"], correcta:0 },
-    { tipo:"significado-runa", instruccion:"¿Qué significa Gebo?", runa_id:"gebo", opciones:["Alegría y éxito","Regalo y generosidad","Viaje y movimiento","Antorcha y creatividad"], correcta:1 },
-    { tipo:"significado-runa", instruccion:"¿Qué representa Wunjo?", runa_id:"wunjo", opciones:["Fuerza y resistencia","Comunicación y sabiduría","Alegría y armonía","Protección y conflicto"], correcta:2 },
+    { tipo:"quiz-rapido", instruccion:"¡Respondé antes de que se acabe el tiempo!", runa_id:"kenaz", opciones:["Kenaz","Raidho","Gebo","Wunjo"], correcta:0 },
+    { tipo:"emparejar-runas", instruccion:"Emparejá cada runa con su significado", runas_ids:["raidho","kenaz","gebo","wunjo"], cantidad:4, subtipo:"significado" },
     { tipo:"clase-runa", instruccion:"¿De qué aett es esta runa?", runa_id:"kenaz", opciones:["Aett de Freyr (1)","Aett de Heimdall (2)","Aett de Tyr (3)"], correcta:0 },
     { tipo:"verdadero-falso", instruccion:"Gebo es una runa simétrica", respuesta_correcta:true, explicacion:"Correcto: Gebo (ᚷ) es simétrica y siempre se lee igual" }
   ]},
   { id:"l1-3", titulo:"Aett de Freyr Completa", descripcion:"Repasá todas las runas de la primera aett", aett:1, runas_ids:["fehu","uruz","thurisaz","ansuz","raidho","kenaz","gebo","wunjo"], premium:false, ejercicios:[
     { tipo:"identificar-runa", instruccion:"¿Qué runa es esta?", runa_id:"raidho", opciones:["Ansuz","Raidho","Kenaz","Thurisaz"], correcta:1 },
     { tipo:"identificar-runa", instruccion:"¿Qué runa es esta?", runa_id:"wunjo", opciones:["Gebo","Wunjo","Kenaz","Fehu"], correcta:1 },
-    { tipo:"significado-runa", instruccion:"¿Qué significa Ansuz?", runa_id:"ansuz", opciones:["Fuerza y resistencia","Viaje y movimiento","Comunicación y sabiduría","Alegría y armonía"], correcta:2 },
+    { tipo:"memoria-nordica", instruccion:"Encontrá los pares de runa y nombre", runas_ids:["fehu","uruz","thurisaz","ansuz","raidho"], cantidad:4 },
     { tipo:"multiple-choice", instruccion:"¿Cuáles de estas runas son simétricas?", opciones:["Solo Gebo","Gebo y Kenaz","Solo Wunjo","Ninguna"], correcta:0, explicacion:"Solo Gebo (ᚷ) es simétrica en esta aett" },
     { tipo:"ordenar", instruccion:"Ordená estas runas según su posición", elementos:["Fehu","Uruz","Thurisaz","Ansuz"], orden_correcto:["Fehu","Uruz","Thurisaz","Ansuz"] },
     { tipo:"completar-frase", instruccion:"La Aett de Freyr contiene ___ runas", respuesta_correcta:"ocho", pista:"Número del 1 al 10" }
@@ -306,6 +306,9 @@ let respuestasCorrectas = 0;
 let totalEjercicios = 0;
 let selectedRune = null;
 let onboardingRune = null;
+let comboActual = 0;
+let timerInterval = null;
+let tiempoRestante = 0;
 
 // ── Helpers ──────────────────────────────────────────────────
 function shuffleArray(arr) {
@@ -1036,6 +1039,81 @@ function mostrarEjercicio() {
       window._ordenSelected = null;
       break;
     }
+    case 'emparejar-runas': {
+      const runasEmparejar = ej.runas_ids.slice(0, ej.cantidad || 4);
+      const runasData = runasEmparejar.map(id => RUNAS.find(r => r.id === id));
+      const nombresMezclados = shuffleArray(runasData.map(r => ({id: r.id, texto: r.nombre})));
+      const significadosMezclados = shuffleArray(runasData.map(r => ({id: r.id, texto: r.significado.split(',')[0]})));
+      container.innerHTML = `
+        <div class="ejercicio-tipo">Emparejar</div>
+        <h2 class="ejercicio-instruccion">${ej.instruccion}</h2>
+        <p class="ejercicio-hint">Tocá una runa y luego su ${ej.subtipo === 'nombre' ? 'nombre' : 'significado'}</p>
+        <div class="emparejar-container">
+          <div class="emparejar-col">
+            ${runasData.map(r => `<div class="emparejar-item emparejar-runa" data-runaid="${r.id}" onclick="selectEmparejar(this, 'runa')">${r.simbolo}</div>`).join('')}
+          </div>
+          <div class="emparejar-col">
+            ${(ej.subtipo === 'nombre' ? nombresMezclados : significadosMezclados).map(item => 
+              `<div class="emparejar-item emparejar-texto" data-runaid="${item.id}" onclick="selectEmparejar(this, 'texto')">${item.texto}</div>`
+            ).join('')}
+          </div>
+        </div>`;
+      window._emparejarSeleccion = { runa: null, texto: null };
+      window._emparejarPares = runasEmparejar;
+      window._emparejarAcertados = 0;
+      window._emparejarTotal = runasEmparejar.length;
+      break;
+    }
+    case 'memoria-nordica': {
+      const runasMemoria = ej.runas_ids.slice(0, ej.cantidad || 4);
+      const runasData = runasMemoria.map(id => RUNAS.find(r => r.id === id));
+      const cartas = [];
+      runasData.forEach(r => {
+        cartas.push({ tipo: 'runa', id: r.id, contenido: r.simbolo });
+        cartas.push({ tipo: 'nombre', id: r.id, contenido: r.nombre });
+      });
+      const cartasMezcladas = shuffleArray(cartas);
+      container.innerHTML = `
+        <div class="ejercicio-tipo">Memoria Nórdica</div>
+        <h2 class="ejercicio-instruccion">${ej.instruccion}</h2>
+        <p class="ejercicio-hint">Encontrá los pares: runa ↔ nombre</p>
+        <div class="memoria-grid" id="memoria-grid">
+          ${cartasMezcladas.map((c, i) => `
+            <div class="memoria-carta" data-tipo="${c.tipo}" data-runaid="${c.id}" data-idx="${i}" onclick="tapMemoria(this)">
+              <span class="memoria-frente">?</span>
+              <span class="memoria-atras">${c.contenido}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="memoria-stats">
+          <span id="memoria-intentos">Intentos: 0</span>
+          <span id="memoria-pares">Pares: 0/${runasMemoria.length}</span>
+        </div>`;
+      window._memoriaSeleccion = null;
+      window._memoriaIntentos = 0;
+      window._memoriaParesEncontrados = 0;
+      window._memoriaTotalPares = runasMemoria.length;
+      window._memoriaBloqueado = false;
+      break;
+    }
+    case 'quiz-rapido': {
+      const r = RUNAS.find(x=>x.id===ej.runa_id);
+      const { opciones, correcta } = shuffleOpciones(ej);
+      tiempoRestante = 10;
+      container.innerHTML = `
+        <div class="ejercicio-tipo">Quiz Rápido ⚡</div>
+        <h2 class="ejercicio-instruccion">${ej.instruccion}</h2>
+        <div class="quiz-timer" id="quiz-timer">
+          <div class="quiz-timer-bar" id="quiz-timer-bar"></div>
+          <span class="quiz-timer-text" id="quiz-timer-text">${tiempoRestante}s</span>
+        </div>
+        <div class="runa-grande">${r.simbolo}</div>
+        <div class="opciones-grid">
+          ${opciones.map((o,i)=>`<button class="opcion-btn-ejercicio" onclick="checkQuizRapido(this,${i},${correcta})">${o}</button>`).join('')}
+        </div>`;
+      startQuizTimer();
+      break;
+    }
   }
 }
 
@@ -1197,6 +1275,198 @@ function tapOrdenar(el) {
   }
 }
 
+// ── Emparejar Runas ─────────────────────────────────────────
+function selectEmparejar(el, tipo) {
+  if (window._emparejarPares.length === 0) return;
+  
+  if (tipo === 'runa') {
+    document.querySelectorAll('.emparejar-runa').forEach(r => r.classList.remove('seleccionado'));
+    el.classList.add('seleccionado');
+    window._emparejarSeleccion.runa = el.dataset.runaid;
+  } else {
+    document.querySelectorAll('.emparejar-texto').forEach(t => t.classList.remove('seleccionado'));
+    el.classList.add('seleccionado');
+    window._emparejarSeleccion.texto = el.dataset.runaid;
+  }
+
+  // Si hay ambos seleccionados, verificar
+  if (window._emparejarSeleccion.runa && window._emparejarSeleccion.texto) {
+    const correcto = window._emparejarSeleccion.runa === window._emparejarSeleccion.texto;
+    const runaEl = document.querySelector(`.emparejar-runa[data-runaid="${window._emparejarSeleccion.runa}"]`);
+    const textoEl = document.querySelector(`.emparejar-texto[data-runaid="${window._emparejarSeleccion.texto}"]`);
+    
+    if (correcto) {
+      runaEl?.classList.add('correcta');
+      textoEl?.classList.add('correcta');
+      runaEl?.classList.remove('seleccionado');
+      textoEl?.classList.remove('seleccionado');
+      runaEl.style.pointerEvents = 'none';
+      textoEl.style.pointerEvents = 'none';
+      window._emparejarAcertados++;
+      xpGanados += 10;
+      comboActual++;
+      AudioManager.playSfx('correct');
+      createParticles(runaEl);
+      
+      if (window._emparejarAcertados === window._emparejarTotal) {
+        respuestasCorrectas++;
+        showFeedback(true, '¡Todos emparejados! 🎉');
+        document.getElementById('btn-siguiente').disabled = false;
+      }
+    } else {
+      runaEl?.classList.add('incorrecta');
+      textoEl?.classList.add('incorrecta');
+      comboActual = 0;
+      AudioManager.playSfx('incorrect');
+      
+      setTimeout(() => {
+        runaEl?.classList.remove('incorrecta', 'seleccionado');
+        textoEl?.classList.remove('incorrecta', 'seleccionado');
+      }, 800);
+    }
+    
+    window._emparejarSeleccion = { runa: null, texto: null };
+    document.getElementById('ejercicio-xp-actual').textContent = `+${xpGanados} XP`;
+  }
+}
+
+// �─ Memoria Nórdica ──────────────────────────────────────────
+function tapMemoria(el) {
+  if (window._memoriaBloqueado) return;
+  if (el.classList.contains('volteada') || el.classList.contains('encontrada')) return;
+  
+  el.classList.add('volteada');
+  AudioManager.playSfx('correct');
+  
+  if (!window._memoriaSeleccion) {
+    window._memoriaSeleccion = el;
+  } else {
+    window._memoriaBloqueado = true;
+    window._memoriaIntentos++;
+    document.getElementById('memoria-intentos').textContent = `Intentos: ${window._memoriaIntentos}`;
+    
+    const primera = window._memoriaSeleccion;
+    const segunda = el;
+    const mismoRuna = primera.dataset.runaid === segunda.dataset.runaid;
+    const distintoTipo = primera.dataset.tipo !== segunda.dataset.tipo;
+    
+    if (mismoRuna && distintoTipo) {
+      // Par encontrado
+      setTimeout(() => {
+        primera.classList.add('encontrada');
+        segunda.classList.add('encontrada');
+        window._memoriaParesEncontrados++;
+        document.getElementById('memoria-pares').textContent = `Pares: ${window._memoriaParesEncontrados}/${window._memoriaTotalPares}`;
+        xpGanados += 15;
+        comboActual++;
+        AudioManager.playSfx('levelup');
+        createParticles(primera);
+        
+        if (window._memoriaParesEncontrados === window._memoriaTotalPares) {
+          respuestasCorrectas++;
+          showFeedback(true, '¡Memoria perfecta! 🧠🎉');
+          document.getElementById('btn-siguiente').disabled = false;
+        }
+        
+        window._memoriaSeleccion = null;
+        window._memoriaBloqueado = false;
+        document.getElementById('ejercicio-xp-actual').textContent = `+${xpGanados} XP`;
+      }, 500);
+    } else {
+      // No es par
+      setTimeout(() => {
+        primera.classList.remove('volteada');
+        segunda.classList.remove('volteada');
+        window._memoriaSeleccion = null;
+        window._memoriaBloqueado = false;
+        comboActual = 0;
+      }, 1000);
+    }
+  }
+}
+
+// ── Quiz Rápido ─────────────────────────────────────────────
+function startQuizTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  tiempoRestante = 10;
+  
+  timerInterval = setInterval(() => {
+    tiempoRestante--;
+    const timerText = document.getElementById('quiz-timer-text');
+    const timerBar = document.getElementById('quiz-timer-bar');
+    
+    if (timerText) timerText.textContent = `${tiempoRestante}s`;
+    if (timerBar) timerBar.style.width = `${(tiempoRestante/10)*100}%`;
+    
+    if (tiempoRestante <= 3) {
+      timerBar?.classList.add('urgente');
+    }
+    
+    if (tiempoRestante <= 0) {
+      clearInterval(timerInterval);
+      // Tiempo agotado
+      document.querySelectorAll('.opcion-btn-ejercicio').forEach(b => b.disabled = true);
+      showFeedback(false, '⏰ ¡Tiempo agotado!');
+      comboActual = 0;
+      AudioManager.playSfx('incorrect');
+      document.getElementById('btn-siguiente').disabled = false;
+    }
+  }, 1000);
+}
+
+function checkQuizRapido(btn, index, correcta) {
+  if (timerInterval) clearInterval(timerInterval);
+  
+  const grid = btn.closest('.opciones-grid');
+  grid.querySelectorAll('.opcion-btn-ejercicio').forEach(b => b.disabled = true);
+  btn.classList.add('seleccionada');
+  
+  if (index === correcta) {
+    btn.classList.add('correcta');
+    const bonusTiempo = tiempoRestante * 2;
+    const comboBonus = comboActual >= 3 ? comboActual * 5 : 0;
+    xpGanados += 10 + bonusTiempo + comboBonus;
+    respuestasCorrectas++;
+    comboActual++;
+    
+    let msg = '¡Correcto! 🎉';
+    if (comboBonus > 0) msg += ` +${comboBonus} combo!`;
+    if (bonusTiempo > 10) msg += ` +${bonusTiempo} velocidad!`;
+    
+    showFeedback(true, msg);
+    AudioManager.playSfx('correct');
+    createParticles(btn);
+  } else {
+    btn.classList.add('incorrecta');
+    grid.children[correcta]?.classList.add('correcta');
+    showFeedback(false, 'Incorrecto 😔');
+    comboActual = 0;
+    AudioManager.playSfx('incorrect');
+  }
+  
+  document.getElementById('ejercicio-xp-actual').textContent = `+${xpGanados} XP`;
+  document.getElementById('btn-siguiente').disabled = false;
+}
+
+// ── Partículas ──────────────────────────────────────────────
+function createParticles(el) {
+  if (!el) return;
+  const rect = el.getBoundingClientRect();
+  const container = document.getElementById('ejercicio-contenido');
+  
+  for (let i = 0; i < 8; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = `${rect.left + rect.width/2}px`;
+    particle.style.top = `${rect.top + rect.height/2}px`;
+    particle.style.setProperty('--tx', `${(Math.random()-0.5)*100}px`);
+    particle.style.setProperty('--ty', `${(Math.random()-0.5)*100}px`);
+    container.appendChild(particle);
+    
+    setTimeout(() => particle.remove(), 800);
+  }
+}
+
 function showFeedback(correcta, msg) {
   document.getElementById('feedback-container').innerHTML =
     `<div class="feedback ${correcta?'correcto':'incorrecto'}">${correcta?'✅':'❌'} ${msg}</div>`;
@@ -1217,8 +1487,11 @@ function desafioCompletadoHoy() {
 }
 
 function generarEjerciciosDiarios() {
-  const runasMezcladas = shuffleArray(RUNAS).slice(0, 5);
-  const tipos = ['identificar-runa', 'significado-runa', 'identificar-runa', 'significado-runa', 'multiple-choice'];
+  const runasMezcladas = shuffleArray(RUNAS).slice(0, 6);
+  const tipos = [
+    'identificar-runa', 'significado-runa', 'emparejar-runas', 
+    'memoria-nordica', 'quiz-rapido', 'multiple-choice'
+  ];
   const ejercicios = [];
 
   runasMezcladas.forEach((r, i) => {
@@ -1242,6 +1515,29 @@ function generarEjerciciosDiarios() {
         runa_id: r.id,
         opciones,
         correcta: opciones.indexOf(r.significado.split(',')[0])
+      });
+    } else if (tipo === 'emparejar-runas') {
+      ejercicios.push({
+        tipo: 'emparejar-runas',
+        instruccion: 'Emparejá cada runa con su nombre',
+        runas_ids: runasMezcladas.slice(i, i+4).map(r => r.id),
+        cantidad: 4,
+        subtipo: 'nombre'
+      });
+    } else if (tipo === 'memoria-nordica') {
+      ejercicios.push({
+        tipo: 'memoria-nordica',
+        instruccion: 'Encontrá los pares de runa y nombre',
+        runas_ids: runasMezcladas.slice(i, i+3).map(r => r.id),
+        cantidad: 3
+      });
+    } else if (tipo === 'quiz-rapido') {
+      ejercicios.push({
+        tipo: 'quiz-rapido',
+        instruccion: '¡Respondé antes de que se acabe el tiempo!',
+        runa_id: r.id,
+        opciones: shuffleArray([r.nombre, ...shuffleArray(RUNAS.filter(x => x.id !== r.id)).slice(0, 3).map(x => x.nombre)]),
+        correcta: 0 // Se mezcla en el render
       });
     } else {
       const opciones = ['Simétrica — siempre se lee igual', 'Invertible — puede caer merkstave'];

@@ -2126,6 +2126,220 @@ body::before {
   border: 1px solid rgba(217,83,79,0.3);
 }
 
+/* ── Emparejar ────────────────────────────────────────────── */
+.emparejar-container {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.emparejar-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex: 1;
+  max-width: 200px;
+}
+
+.emparejar-item {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.emparejar-item:active {
+  transform: scale(0.95);
+}
+
+.emparejar-item.seleccionado {
+  border-color: var(--gold);
+  background: var(--gold-subtle);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
+}
+
+.emparejar-item.correcta {
+  border-color: var(--success);
+  background: rgba(92, 184, 92, 0.15);
+  animation: correctPulse 0.5s ease;
+}
+
+.emparejar-item.incorrecta {
+  border-color: var(--danger);
+  background: rgba(217, 83, 79, 0.15);
+  animation: shake 0.4s ease;
+}
+
+.emparejar-runa {
+  font-size: 2.5rem;
+}
+
+.emparejar-texto {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* ── Memoria Nórdica ──────────────────────────────────────── */
+.memoria-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.memoria-carta {
+  aspect-ratio: 1;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  perspective: 1000px;
+}
+
+.memoria-carta:active {
+  transform: scale(0.95);
+}
+
+.memoria-frente,
+.memoria-atras {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  border-radius: var(--radius-sm);
+  transition: transform 0.4s ease;
+}
+
+.memoria-frente {
+  background: linear-gradient(135deg, var(--bg-card), var(--stone));
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+.memoria-atras {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color: var(--bg);
+  font-weight: 700;
+  transform: rotateY(180deg);
+  font-size: 1.2rem;
+}
+
+.memoria-carta.volteada .memoria-frente {
+  transform: rotateY(180deg);
+}
+
+.memoria-carta.volteada .memoria-atras {
+  transform: rotateY(0deg);
+}
+
+.memoria-carta.encontrada {
+  border-color: var(--success);
+  background: rgba(92, 184, 92, 0.2);
+  pointer-events: none;
+}
+
+.memoria-carta.encontrada .memoria-atras {
+  background: linear-gradient(135deg, #3a7d44, #5cb85c);
+  animation: correctPulse 0.5s ease;
+}
+
+.memoria-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* ── Quiz Rápido ──────────────────────────────────────────── */
+.quiz-timer {
+  position: relative;
+  height: 8px;
+  background: var(--stone);
+  border-radius: 4px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.quiz-timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 4px;
+  transition: width 1s linear;
+  width: 100%;
+}
+
+.quiz-timer-bar.urgente {
+  background: linear-gradient(90deg, var(--danger), #ff6b6b);
+  animation: timerPulse 0.5s ease infinite;
+}
+
+.quiz-timer-text {
+  position: absolute;
+  right: 0;
+  top: -22px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ── Partículas ───────────────────────────────────────────── */
+.particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  animation: particleFly 0.8s ease-out forwards;
+}
+
+@keyframes particleFly {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0);
+  }
+}
+
+@keyframes correctPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
 /* ── Footer Ejercicio ───────────────────────────────────────── */
 .ejercicio-footer {
   background: rgba(15, 17, 25, 0.95);
@@ -2655,6 +2869,19 @@ body::before {
 
   .resultado-stats-grid {
     max-width: 450px;
+  }
+
+  .memoria-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 450px;
+  }
+
+  .emparejar-container {
+    gap: 2rem;
+  }
+
+  .emparejar-col {
+    max-width: 250px;
   }
 }
 
