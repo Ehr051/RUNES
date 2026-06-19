@@ -1,17 +1,17 @@
-// ── Nova Runas Service Worker ──────────────────────────────
-const CACHE_NAME = 'nova-runas-v2';
-const ASSETS = [
+// ── RUNES Service Worker v3 ────────────────────────────────
+const CACHE_NAME = 'runes-v3';
+const PRECACHE = [
   '/',
   '/index.html',
   '/styles.css',
-  '/script.js',
+  '/script.min.js',
   '/manifest.json'
 ];
 
-// Install: cache assets
+// Install: precache core assets only
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE))
   );
   self.skipWaiting();
 });
@@ -26,9 +26,35 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-// Fetch: cache-first, fallback to network
+// Fetch: cache-first for core, network-first for audio
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  
+  const url = new URL(e.request.url);
+  
+  // Audio: network-first (stream, don't block)
+  if (url.pathname.includes('/audio/')) {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+  
+  // Images: cache-first
+  if (url.pathname.includes('/img/')) {
+    e.respondWith(
+      caches.match(e.request).then(cached => 
+        cached || fetch(e.request).then(resp => {
+          const clone = resp.clone();
+          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+          return resp;
+        })
+      )
+    );
+    return;
+  }
+  
+  // Core: cache-first
   e.respondWith(
     caches.match(e.request).then(cached => cached || fetch(e.request))
   );

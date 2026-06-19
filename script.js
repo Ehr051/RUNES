@@ -1,6 +1,9 @@
 // ══════════════════════════════════════════════════════════════
-// Nova Runas v2.0 — Script Principal
+// RUNES v2.1 — Script Principal
 // ══════════════════════════════════════════════════════════════
+
+// requestIdleCallback polyfill
+window.requestIdleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
 
 // ── Firebase Config ──────────────────────────────────────────
 const firebaseConfig = {
@@ -193,41 +196,39 @@ const AudioManager = {
   sfxEnabled: true,
   volume: 0.3,
   _initialized: false,
+  _loadPromise: null,
 
   init() {
     if (this._initialized) return;
     this._initialized = true;
-    
     try {
       this.musicEnabled = localStorage.getItem('nova_music') !== 'false';
       this.sfxEnabled = localStorage.getItem('nova_sfx') !== 'false';
-    } catch(e) {
-      console.log('AudioManager init failed:', e);
-    }
+    } catch(e) {}
   },
 
-  _loadMusic() {
-    if (this.bgMusic) return;
-    try {
-      this.bgMusic = new Audio();
-      this.bgMusic.loop = true;
-      this.bgMusic.volume = this.volume;
-      this.bgMusic.preload = 'none';
-      this.bgMusic.src = 'audio/ambient-norse.mp3';
-      this.bgMusic.addEventListener('error', () => {
-        console.log('Audio no disponible');
-      });
-    } catch(e) {
-      console.log('AudioManager load failed:', e);
-    }
+  _lazyLoad() {
+    if (this._loadPromise) return this._loadPromise;
+    this._loadPromise = new Promise((resolve) => {
+      try {
+        this.bgMusic = new Audio();
+        this.bgMusic.loop = true;
+        this.bgMusic.volume = this.volume;
+        this.bgMusic.preload = 'none';
+        this.bgMusic.src = 'audio/Cuerno de Hielo.mp3';
+        this.bgMusic.addEventListener('canplaythrough', () => resolve(), { once: true });
+        this.bgMusic.addEventListener('error', () => resolve());
+        // Timeout fallback
+        setTimeout(resolve, 3000);
+      } catch(e) { resolve(); }
+    });
+    return this._loadPromise;
   },
 
-  playMusic() {
+  async playMusic() {
     if (!this.musicEnabled) return;
-    this._loadMusic();
-    if (this.bgMusic) {
-      this.bgMusic.play().catch(() => {});
-    }
+    await this._lazyLoad();
+    if (this.bgMusic) this.bgMusic.play().catch(() => {});
   },
 
   pauseMusic() {
@@ -1756,15 +1757,17 @@ document.addEventListener('DOMContentLoaded', () => {
   createFloatingRunes('floating-runes', 20);
   createFloatingRunes('floating-runes-home', 12);
 
-  // Loading screen
+  // Loading screen - faster
   setTimeout(() => {
     document.getElementById('loading-screen').classList.add('hidden');
-  }, 800);
+  }, 400);
 
-  // Auth
-  handleRedirectResult();
-  initAuth();
-  initSettings();
+  // Auth - defer non-critical
+  requestIdleCallback(() => {
+    handleRedirectResult();
+    initAuth();
+    initSettings();
+  });
 
   // Event listeners
   document.querySelectorAll('.nav-btn').forEach(btn => {
