@@ -192,26 +192,42 @@ const AudioManager = {
   musicEnabled: true,
   sfxEnabled: true,
   volume: 0.3,
+  _initialized: false,
 
   init() {
+    if (this._initialized) return;
+    this._initialized = true;
+    
     try {
-      this.bgMusic = new Audio();
-      this.bgMusic.loop = true;
-      this.bgMusic.volume = this.volume;
-      this.bgMusic.src = 'audio/ambient-norse.mp3';
       this.musicEnabled = localStorage.getItem('nova_music') !== 'false';
       this.sfxEnabled = localStorage.getItem('nova_sfx') !== 'false';
-      this.bgMusic.addEventListener('error', () => {
-        console.log('Audio no disponible');
-      });
     } catch(e) {
       console.log('AudioManager init failed:', e);
     }
   },
 
+  _loadMusic() {
+    if (this.bgMusic) return;
+    try {
+      this.bgMusic = new Audio();
+      this.bgMusic.loop = true;
+      this.bgMusic.volume = this.volume;
+      this.bgMusic.preload = 'none';
+      this.bgMusic.src = 'audio/ambient-norse.mp3';
+      this.bgMusic.addEventListener('error', () => {
+        console.log('Audio no disponible');
+      });
+    } catch(e) {
+      console.log('AudioManager load failed:', e);
+    }
+  },
+
   playMusic() {
-    if (!this.musicEnabled || !this.bgMusic) return;
-    this.bgMusic.play().catch(() => {});
+    if (!this.musicEnabled) return;
+    this._loadMusic();
+    if (this.bgMusic) {
+      this.bgMusic.play().catch(() => {});
+    }
   },
 
   pauseMusic() {
