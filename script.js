@@ -412,7 +412,11 @@ function initAuth() {
     if (user) {
       currentUser = user;
       _authInitialized = true;
-      // Load from Firestore
+      // Load from Firestore (skip if offline)
+      if (!navigator.onLine) {
+        console.log('Offline mode - using local data');
+        return;
+      }
       try {
         const doc = await db.collection('users').doc(user.uid).get();
         if (doc.exists) {

@@ -32,6 +32,13 @@ self.addEventListener('fetch', (e) => {
   
   const url = new URL(e.request.url);
   
+  // Skip Firestore/Firebase API calls
+  if (url.hostname.includes('firestore.googleapis.com') || 
+      url.hostname.includes('firebaseio.com') ||
+      url.hostname.includes('googleapis.com') && url.pathname.includes('google.firestore')) {
+    return;
+  }
+  
   // Audio: network-first (stream, don't block)
   if (url.pathname.includes('/audio/')) {
     e.respondWith(
