@@ -285,7 +285,7 @@
       </div>
       <div class="tirada-visual">
         <div class="tirada-bolsa" id="tirada-bolsa" onclick="hacerTirada()">
-          <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="leatherGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#8B6914;stop-opacity:1" />
@@ -306,25 +306,26 @@
               </filter>
             </defs>
             
-            <!-- Bag body - round bottom sitting on table -->
-            <path d="M 35 55 
-                     Q 35 48, 45 42 
-                     L 78 32 
-                     Q 90 28, 100 28 
-                     Q 110 28, 122 32 
-                     L 155 42 
-                     Q 165 48, 165 55 
-                     L 162 75 
-                     Q 158 95, 152 115 
-                     Q 148 135, 145 155 
-                     Q 142 175, 140 190 
-                     Q 138 205, 130 215 
-                     Q 120 228, 100 232 
-                     Q 80 228, 70 215 
-                     Q 62 205, 60 190 
-                     Q 58 175, 55 155 
-                     Q 52 135, 48 115 
-                     Q 42 95, 38 75 
+            <!-- Bag body - wide bottom, shorter -->
+            <path d="M 50 45 
+                     Q 50 38, 60 32 
+                     L 95 22 
+                     Q 110 18, 120 18 
+                     Q 130 18, 145 22 
+                     L 180 32 
+                     Q 190 38, 190 45 
+                     L 188 60 
+                     Q 185 80, 180 100 
+                     Q 175 120, 172 135 
+                     Q 168 150, 165 162 
+                     Q 160 175, 150 185 
+                     Q 138 195, 120 200 
+                     Q 100 205, 80 200 
+                     Q 62 195, 50 185 
+                     Q 40 175, 35 162 
+                     Q 32 150, 28 135 
+                     Q 25 120, 22 100 
+                     Q 18 80, 15 60 
                      Z" 
                   fill="url(#leatherGrad)" 
                   stroke="#2A1508" 
@@ -332,46 +333,46 @@
                   filter="url(#leatherTexture)"/>
             
             <!-- Flat bottom - bag sitting on surface -->
-            <ellipse cx="100" cy="230" rx="35" ry="8" fill="#2A1508" opacity="0.4"/>
+            <ellipse cx="100" cy="202" rx="55" ry="8" fill="#2A1508" opacity="0.4"/>
             
             <!-- Bag opening shadow -->
-            <ellipse cx="100" cy="38" rx="55" ry="10" fill="#2A1508" opacity="0.5"/>
+            <ellipse cx="120" cy="28" rx="50" ry="10" fill="#2A1508" opacity="0.5"/>
             
             <!-- Leather fold at top -->
-            <path d="M 40 50 Q 100 58, 160 50" 
+            <path d="M 55 42 Q 120 50, 185 42" 
                   stroke="#4A2810" stroke-width="2.5" fill="none" opacity="0.7"/>
             
             <!-- Stitching left -->
-            <path d="M 42 65 Q 48 100, 55 135 Q 60 165, 68 195" 
+            <path d="M 55 55 Q 60 85, 68 115 Q 74 140, 82 165" 
                   stroke="#8B7355" stroke-width="1" fill="none" stroke-dasharray="4,4" opacity="0.5"/>
             
             <!-- Stitching right -->
-            <path d="M 158 65 Q 152 100, 145 135 Q 140 165, 132 195" 
+            <path d="M 185 55 Q 180 85, 172 115 Q 166 140, 158 165" 
                   stroke="#8B7355" stroke-width="1" fill="none" stroke-dasharray="4,4" opacity="0.5"/>
             
             <!-- Drawstring -->
-            <path d="M 60 35 Q 80 42, 100 40 Q 120 38, 140 35" 
+            <path d="M 72 25 Q 95 32, 120 30 Q 145 28, 168 25" 
                   stroke="#3E2210" stroke-width="2.5" fill="none"/>
             
             <!-- Drawstring ends -->
-            <circle cx="60" cy="35" r="3" fill="#3E2210"/>
-            <circle cx="140" cy="35" r="3" fill="#3E2210"/>
+            <circle cx="72" cy="25" r="3" fill="#3E2210"/>
+            <circle cx="168" cy="25" r="3" fill="#3E2210"/>
             
             <!-- Hanging cord left -->
-            <path d="M 60 35 Q 50 48, 45 62 Q 42 72, 46 78" 
+            <path d="M 72 25 Q 62 38, 57 52 Q 54 62, 58 68" 
                   stroke="#3E2210" stroke-width="2" fill="none"/>
             
             <!-- Hanging cord right -->
-            <path d="M 140 35 Q 150 48, 155 62 Q 158 72, 154 78" 
+            <path d="M 168 25 Q 178 38, 183 52 Q 186 62, 182 68" 
                   stroke="#3E2210" stroke-width="2" fill="none"/>
             
             <!-- Leather wear marks -->
-            <path d="M 72 155 Q 80 162, 86 158" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
-            <path d="M 115 175 Q 122 182, 128 178" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
-            <path d="M 88 195 Q 95 202, 102 198" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M 70 120 Q 78 128, 85 124" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M 140 140 Q 148 148, 155 144" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M 95 160 Q 102 168, 110 164" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
             
             <!-- Highlight -->
-            <path d="M 50 85 Q 60 100, 56 130" stroke="rgba(255,255,255,0.08)" stroke-width="5" fill="none"/>
+            <path d="M 60 65 Q 70 80, 66 105" stroke="rgba(255,255,255,0.08)" stroke-width="5" fill="none"/>
           </svg>
           <div class="bolsa-runas">ᚠᚢᚦᚨᚱᚲᚷᚹ</div>
           <p class="bolsa-texto">Tocá para sacar</p>

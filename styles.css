@@ -1120,8 +1120,8 @@ body::before {
 }
 
 .tirada-bolsa {
-  width: 180px;
-  height: 240px;
+  width: 200px;
+  height: 190px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
