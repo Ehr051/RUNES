@@ -1225,6 +1225,147 @@ body::before {
   font-style: italic;
 }
 
+/* ── Tirada Board ──────────────────────────────────────────── */
+.tirada-tablero {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: 
+    radial-gradient(ellipse at center, rgba(42, 45, 58, 0.8) 0%, rgba(20, 22, 31, 0.9) 100%),
+    linear-gradient(180deg, #1a1d28 0%, #14161f 100%);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.tirada-slot {
+  position: absolute;
+  width: 70px;
+  height: 90px;
+  transform: translate(-50%, -50%);
+  border: 2px dashed rgba(201, 168, 76, 0.3);
+  border-radius: 45% 55% 50% 50% / 60% 40% 60% 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.tirada-slot.llenado {
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, 0.1);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+}
+
+.tirada-slot-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0 0.2rem;
+}
+
+.tirada-slot-runa {
+  font-size: 2rem;
+  color: var(--gold);
+  text-shadow: 0 0 15px var(--gold-glow);
+}
+
+.tirada-runa-saliendo {
+  position: absolute;
+  font-size: 2.5rem;
+  color: var(--gold);
+  text-shadow: 0 0 20px var(--gold-glow), 0 0 40px rgba(201, 168, 76, 0.5);
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── Tirada Explanations ───────────────────────────────────── */
+.tirada-explicaciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tirada-explicacion-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  animation: slideUp 0.4s ease;
+}
+
+.explicacion-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.explicacion-pos {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: var(--stone);
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+}
+
+.explicacion-runa {
+  font-size: 1rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.explicacion-merkstave {
+  font-size: 0.7rem;
+  color: var(--danger);
+  margin-left: auto;
+}
+
+.explicacion-texto p {
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.merkstave-text {
+  color: var(--danger) !important;
+}
+
+.consejo-text {
+  color: var(--text-dim) !important;
+  font-style: italic;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Tirada Interpretation ─────────────────────────────────── */
+.tirada-interpretacion {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tirada-interpretacion h3 {
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.tirada-interpretacion p {
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
 .tirada-resultado-container {
   width: 100%;
   margin-bottom: 1rem;

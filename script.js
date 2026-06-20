@@ -739,23 +739,134 @@ function hacerTirada() {
   }
 
   const bolsa = document.getElementById('tirada-bolsa');
-  bolsa.classList.add('animating');
-  AudioManager.playSfx('levelup');
-
-  setTimeout(() => {
-    bolsa.classList.remove('animating');
-    const runas = [];
-    const usadas = [];
-    for (let i = 0; i < tiradaTipo; i++) {
-      let idx;
-      do { idx = Math.floor(Math.random() * RUNAS.length); } while (usadas.includes(idx));
-      usadas.push(idx);
-      const r = RUNAS[idx];
-      const invertida = !r.simetrica && Math.random() < 0.3;
-      runas.push({ ...r, invertida });
+  const tablero = document.getElementById('tirada-tablero');
+  const explicaciones = document.getElementById('tirada-explicaciones');
+  const lectura = document.getElementById('tirada-lectura');
+  
+  // Clear previous
+  tablero.innerHTML = '';
+  explicaciones.innerHTML = '';
+  lectura.innerHTML = '';
+  
+  // Generate runes
+  const runas = [];
+  const usadas = [];
+  for (let i = 0; i < tiradaTipo; i++) {
+    let idx;
+    do { idx = Math.floor(Math.random() * RUNAS.length); } while (usadas.includes(idx));
+    usadas.push(idx);
+    const r = RUNAS[idx];
+    const invertida = !r.simetrica && Math.random() < 0.3;
+    runas.push({ ...r, invertida });
+  }
+  
+  // Create positions on board
+  const spread = SPREADS[tiradaTipo] || SPREADS[1];
+  const posiciones = getPositions(tiradaTipo);
+  
+  posiciones.forEach((pos, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'tirada-slot';
+    slot.style.left = pos.x + '%';
+    slot.style.top = pos.y + '%';
+    slot.innerHTML = `<span class="tirada-slot-label">${spread.posiciones[i]}</span>`;
+    tablero.appendChild(slot);
+  });
+  
+  // Animate runes coming out one by one
+  let currentRune = 0;
+  
+  function sacarSiguienteRuna() {
+    if (currentRune >= runas.length) {
+      // All runes placed - show interpretation
+      mostrarInterpretacion(runas, spread);
+      return;
     }
-    mostrarTiradaResultado(runas);
-  }, 600);
+    
+    const r = runas[currentRune];
+    const pos = posiciones[currentRune];
+    
+    // Create rune element
+    const runaEl = document.createElement('div');
+    runaEl.className = 'tirada-runa-saliendo';
+    runaEl.innerHTML = r.simbolo;
+    runaEl.style.left = '50%';
+    runaEl.style.top = '50%';
+    tablero.appendChild(runaEl);
+    
+    // Animate from bag to position
+    bolsa.classList.add('animating');
+    AudioManager.playSfx('correct');
+    
+    setTimeout(() => {
+      bolsa.classList.remove('animating');
+      runaEl.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      runaEl.style.left = pos.x + '%';
+      runaEl.style.top = pos.y + '%';
+      runaEl.style.transform = 'translate(-50%, -50%) scale(1)';
+      
+      // Mark slot as filled
+      const slot = tablero.children[currentRune];
+      slot.classList.add('llenado');
+      slot.innerHTML = `<span class="tirada-slot-runa">${r.simbolo}</span>`;
+      
+      // Show explanation
+      mostrarExplicacionRuna(r, currentRune, spread.posiciones[currentRune]);
+      
+      currentRune++;
+      setTimeout(sacarSiguienteRuna, 400);
+    }, 300);
+  }
+  
+  sacarSiguienteRuna();
+}
+
+function getPositions(tipo) {
+  switch(tipo) {
+    case 1: return [{x: 50, y: 50}];
+    case 3: return [{x: 20, y: 50}, {x: 50, y: 50}, {x: 80, y: 50}];
+    case 5: return [{x: 50, y: 20}, {x: 20, y: 50}, {x: 50, y: 50}, {x: 80, y: 50}, {x: 50, y: 80}];
+    case 7: return [{x: 15, y: 30}, {x: 35, y: 30}, {x: 50, y: 50}, {x: 65, y: 30}, {x: 85, y: 30}, {x: 35, y: 70}, {x: 65, y: 70}];
+    default: return [{x: 50, y: 50}];
+  }
+}
+
+function mostrarExplicacionRuna(r, index, posicion) {
+  const container = document.getElementById('tirada-explicaciones');
+  const div = document.createElement('div');
+  div.className = 'tirada-explicacion-item';
+  div.innerHTML = `
+    <div class="explicacion-header">
+      <span class="explicacion-pos">${posicion}</span>
+      <span class="explicacion-runa">${r.simbolo} ${r.nombre}</span>
+      ${r.invertida ? '<span class="explicacion-merkstave">⚠️ Merkstave</span>' : ''}
+    </div>
+    <div class="explicacion-texto">
+      <p><strong>Significado:</strong> ${r.significado}</p>
+      ${r.invertida ? `<p class="merkstave-text"><strong>Merkstave:</strong> ${r.significado_invertido && !r.significado_invertido.includes('(No tiene reversa') ? r.significado_invertido : 'Sin cambio significativo.'}</p>` : ''}
+      <p class="consejo-text">💡 ${r.consejo}</p>
+    </div>
+  `;
+  container.appendChild(div);
+}
+
+function mostrarInterpretacion(runas, spread) {
+  const container = document.getElementById('tirada-lectura');
+  const interpretacion = spread.interpretar ? spread.interpretar(runas) : 'Las runas hablan por sí solas. Prestá atención a los patrones y elementos que se repiten.';
+  
+  container.innerHTML = `
+    <div class="tirada-interpretacion">
+      <h3>📜 Interpretación de la Tirada</h3>
+      <p>${interpretacion}</p>
+    </div>
+    <button class="btn-primary btn-full" onclick="guardarTiradaCompleta()">💾 Guardar en diario</button>
+  `;
+  
+  AudioManager.playSfx('complete');
+}
+
+function guardarTiradaCompleta() {
+  showToast('Lectura guardada en tu diario', 'success');
 }
 
 function mostrarTiradaResultado(runas) {
