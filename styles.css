@@ -989,7 +989,6 @@ body::before {
 .runa-ref {
   background: linear-gradient(145deg, #2a2d3a 0%, #1e2028 50%, #252830 100%);
   border: 1.5px solid var(--border);
-  border-radius: 45% 55% 50% 50% / 60% 40% 60% 40%;
   padding: clamp(0.8rem, 2.5vw, 1.2rem) 0.4rem;
   text-align: center;
   cursor: pointer;
@@ -1001,6 +1000,20 @@ body::before {
     inset 0 -2px 4px rgba(0,0,0,0.3),
     0 4px 8px rgba(0,0,0,0.4);
 }
+
+/* Irregular stone shapes */
+.runa-ref:nth-child(12n+1) { border-radius: 45% 55% 50% 50% / 60% 40% 60% 40%; }
+.runa-ref:nth-child(12n+2) { border-radius: 55% 45% 45% 55% / 40% 60% 45% 55%; }
+.runa-ref:nth-child(12n+3) { border-radius: 40% 60% 55% 45% / 55% 45% 50% 50%; }
+.runa-ref:nth-child(12n+4) { border-radius: 50% 50% 40% 60% / 45% 55% 60% 40%; }
+.runa-ref:nth-child(12n+5) { border-radius: 60% 40% 50% 50% / 50% 50% 45% 55%; }
+.runa-ref:nth-child(12n+6) { border-radius: 45% 55% 60% 40% / 55% 45% 40% 60%; }
+.runa-ref:nth-child(12n+7) { border-radius: 50% 50% 45% 55% / 40% 60% 55% 45%; }
+.runa-ref:nth-child(12n+8) { border-radius: 55% 45% 50% 50% / 60% 40% 50% 50%; }
+.runa-ref:nth-child(12n+9) { border-radius: 40% 60% 45% 55% / 45% 55% 55% 45%; }
+.runa-ref:nth-child(12n+10) { border-radius: 50% 50% 55% 45% / 55% 45% 40% 60%; }
+.runa-ref:nth-child(12n+11) { border-radius: 60% 40% 40% 60% / 50% 50% 60% 40%; }
+.runa-ref:nth-child(12n+12) { border-radius: 45% 55% 55% 45% / 60% 40% 45% 55%; }
 
 .runa-ref::before {
   content: '';
@@ -1081,6 +1094,8 @@ body::before {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .tirada-tipo {
@@ -1105,11 +1120,11 @@ body::before {
 }
 
 .tirada-bolsa {
-  width: 200px;
-  height: 220px;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  background: linear-gradient(180deg, #3d2914 0%, #2a1d0e 50%, #1a1209 100%);
-  border: 4px solid #5c3d1f;
+  width: 220px;
+  height: 200px;
+  border-radius: 40% 40% 50% 50% / 50% 50% 60% 60%;
+  background: linear-gradient(180deg, #4a3520 0%, #3d2914 30%, #2a1d0e 70%, #1a1209 100%);
+  border: 5px solid #5c3d1f;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1117,34 +1132,41 @@ body::before {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 
-    inset 0 4px 8px rgba(255,255,255,0.1),
-    inset 0 -4px 8px rgba(0,0,0,0.4),
-    0 8px 20px rgba(0,0,0,0.6),
-    0 0 40px rgba(92,61,31,0.3);
+    inset 0 6px 12px rgba(255,255,255,0.1),
+    inset 0 -8px 16px rgba(0,0,0,0.5),
+    0 10px 30px rgba(0,0,0,0.7),
+    0 0 50px rgba(92,61,31,0.2);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .tirada-bolsa::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 20px;
-  background: linear-gradient(180deg, #5c3d1f 0%, #3d2914 100%);
-  border-radius: 0 0 50% 50%;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
+  width: 100px;
+  height: 30px;
+  background: linear-gradient(180deg, #6b4423 0%, #5c3d1f 50%, #4a3520 100%);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 
+    inset 0 3px 6px rgba(255,255,255,0.15),
+    inset 0 -2px 4px rgba(0,0,0,0.3),
+    0 -2px 4px rgba(0,0,0,0.3);
 }
 
 .tirada-bolsa::after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
-  pointer-events: none;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 8px;
+  background: linear-gradient(180deg, #8b6914 0%, #6b5010 100%);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .tirada-bolsa:hover {
@@ -1557,28 +1579,43 @@ body::before {
 .medallas-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.6rem;
+  gap: 0.8rem;
   max-width: 420px;
   margin: 0 auto;
 }
 
 .medalla {
   text-align: center;
-  padding: 0.7rem 0.3rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  opacity: 0.35;
+  padding: 0.8rem 0.3rem;
+  background: linear-gradient(145deg, #1a1d28 0%, #14161f 100%);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  border: 2px solid #2a2d3a;
+  opacity: 0.4;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .medalla::before {
   content: '';
   position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.medalla::after {
+  content: '';
+  position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(201,168,76,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(201,168,76,0.1) 0%, transparent 50%);
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -1586,33 +1623,43 @@ body::before {
 .medalla.obtenida {
   opacity: 1;
   border-color: var(--gold-dark);
-  background: var(--gold-subtle);
-  box-shadow: 0 0 15px rgba(201,168,76,0.2);
+  background: linear-gradient(145deg, #3d3520 0%, #2a2510 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.1),
+    inset 0 -2px 4px rgba(0,0,0,0.3),
+    0 4px 12px rgba(0,0,0,0.5),
+    0 0 20px rgba(201,168,76,0.2);
 }
 
-.medalla.obtenida::before {
+.medalla.obtenida::after {
   opacity: 1;
 }
 
 .medalla-icono {
   display: block;
-  font-size: 1.8rem;
-  margin-bottom: 0.2rem;
+  font-size: 1.6rem;
+  margin-bottom: 0.1rem;
   color: var(--gold);
-  text-shadow: 0 0 10px rgba(201,168,76,0.5);
-  line-height: 1.2;
+  text-shadow: 0 0 8px rgba(201,168,76,0.3);
+  line-height: 1;
 }
 
 .medalla.obtenida .medalla-icono {
-  text-shadow: 0 0 15px rgba(201,168,76,0.7), 0 0 30px rgba(201,168,76,0.3);
+  text-shadow: 0 0 12px rgba(201,168,76,0.6), 0 0 24px rgba(201,168,76,0.3);
+  animation: medalGlow 2s ease-in-out infinite;
+}
+
+@keyframes medalGlow {
+  0%, 100% { text-shadow: 0 0 12px rgba(201,168,76,0.6), 0 0 24px rgba(201,168,76,0.3); }
+  50% { text-shadow: 0 0 18px rgba(201,168,76,0.8), 0 0 36px rgba(201,168,76,0.4); }
 }
 
 .medalla-nombre {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   color: var(--text-muted);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .medalla.obtenida .medalla-nombre {
