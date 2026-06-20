@@ -805,10 +805,13 @@ function hacerTirada() {
       runaEl.style.top = pos.y + '%';
       runaEl.style.transform = 'translate(-50%, -50%) scale(1)';
       
-      // Mark slot as filled
+      // Mark slot as filled - keep label, add rune
       const slot = tablero.children[currentRune];
       slot.classList.add('llenado');
-      slot.innerHTML = `<span class="tirada-slot-runa">${r.simbolo}</span>`;
+      slot.innerHTML = `
+        <span class="tirada-slot-runa">${r.simbolo}</span>
+        <span class="tirada-slot-label">${spread.posiciones[currentRune]}</span>
+      `;
       
       // Show explanation
       mostrarExplicacionRuna(r, currentRune, spread.posiciones[currentRune]);

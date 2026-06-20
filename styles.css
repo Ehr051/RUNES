@@ -1120,12 +1120,13 @@ body::before {
 }
 
 .tirada-bolsa {
-  width: 200px;
-  height: 180px;
+  width: 180px;
+  height: 160px;
   background: 
     radial-gradient(ellipse at 50% 120%, #1a1209 0%, transparent 50%),
-    linear-gradient(180deg, #5c3d1f 0%, #4a3520 20%, #3d2914 60%, #2a1d0e 100%);
-  border: none;
+    linear-gradient(180deg, #6b4423 0%, #5c3d1f 20%, #4a3520 60%, #3d2914 100%);
+  border: 2px solid #2a1d0e;
+  border-radius: 0 0 50% 50% / 0 0 70% 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1134,18 +1135,13 @@ body::before {
   transition: all 0.3s ease;
   position: relative;
   overflow: visible;
-  clip-path: polygon(
-    15% 0%, 85% 0%, 
-    95% 5%, 100% 15%, 
-    100% 70%, 95% 85%, 
-    80% 95%, 50% 100%, 
-    20% 95%, 5% 85%, 
-    0% 70%, 0% 15%, 
-    5% 5%
-  );
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.1),
+    inset 0 -4px 8px rgba(0,0,0,0.3),
+    0 8px 20px rgba(0,0,0,0.5);
 }
 
-/* Leather texture overlay */
+/* Leather texture */
 .tirada-bolsa::before {
   content: '';
   position: absolute;
@@ -1154,18 +1150,11 @@ body::before {
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 8px,
-      rgba(0,0,0,0.1) 8px,
-      rgba(0,0,0,0.1) 9px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 8px,
-      rgba(0,0,0,0.05) 8px,
-      rgba(0,0,0,0.05) 9px
+      transparent 6px,
+      rgba(0,0,0,0.08) 6px,
+      rgba(0,0,0,0.08) 7px
     );
-  clip-path: inherit;
+  border-radius: inherit;
   pointer-events: none;
 }
 
@@ -1173,10 +1162,16 @@ body::before {
 .tirada-bolsa::after {
   content: '';
   position: absolute;
-  top: -8px;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
+  width: 100px;
+  height: 12px;
+  background: linear-gradient(180deg, #3d2914 0%, #2a1d0e 100%);
+  border-radius: 10px 10px 0 0;
+  border: 1.5px solid #1a1209;
+  border-bottom: none;
+}
   height: 25px;
   background: linear-gradient(180deg, #6b4423 0%, #5c3d1f 50%, #4a3520 100%);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
@@ -1229,57 +1224,88 @@ body::before {
 .tirada-tablero {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 280px;
   background: 
     radial-gradient(ellipse at center, rgba(42, 45, 58, 0.8) 0%, rgba(20, 22, 31, 0.9) 100%),
     linear-gradient(180deg, #1a1d28 0%, #14161f 100%);
   border: 2px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 1.5rem;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .tirada-slot {
   position: absolute;
-  width: 70px;
-  height: 90px;
+  width: 75px;
+  height: 95px;
   transform: translate(-50%, -50%);
-  border: 2px dashed rgba(201, 168, 76, 0.3);
-  border-radius: 45% 55% 50% 50% / 60% 40% 60% 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  /* Stone style like reference */
+  background: linear-gradient(145deg, #2a2d3a 0%, #1e2028 50%, #252830 100%);
+  border: 1.5px solid var(--border);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.05),
+    inset 0 -2px 4px rgba(0,0,0,0.3),
+    0 4px 8px rgba(0,0,0,0.4);
+  opacity: 0.5;
 }
 
+/* Irregular stone shapes */
+.tirada-slot:nth-child(12n+1) { border-radius: 45% 55% 50% 50% / 60% 40% 60% 40%; }
+.tirada-slot:nth-child(12n+2) { border-radius: 55% 45% 45% 55% / 40% 60% 45% 55%; }
+.tirada-slot:nth-child(12n+3) { border-radius: 40% 60% 55% 45% / 55% 45% 50% 50%; }
+.tirada-slot:nth-child(12n+4) { border-radius: 50% 50% 40% 60% / 45% 55% 60% 40%; }
+.tirada-slot:nth-child(12n+5) { border-radius: 60% 40% 50% 50% / 50% 50% 45% 55%; }
+.tirada-slot:nth-child(12n+6) { border-radius: 45% 55% 60% 40% / 55% 45% 40% 60%; }
+.tirada-slot:nth-child(12n+7) { border-radius: 50% 50% 45% 55% / 40% 60% 55% 45%; }
+
 .tirada-slot.llenado {
-  border-color: var(--gold);
-  background: rgba(201, 168, 76, 0.1);
-  box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+  opacity: 1;
+  border-color: var(--gold-dark);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.05),
+    inset 0 -2px 4px rgba(0,0,0,0.3),
+    0 8px 16px rgba(0,0,0,0.5),
+    0 0 20px var(--gold-glow);
 }
 
 .tirada-slot-label {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   text-align: center;
   padding: 0 0.2rem;
+  position: absolute;
+  bottom: -20px;
+  white-space: nowrap;
+  font-style: italic;
 }
 
 .tirada-slot-runa {
   font-size: 2rem;
   color: var(--gold);
-  text-shadow: 0 0 15px var(--gold-glow);
+  text-shadow: 0 0 10px var(--gold-glow), 0 0 20px rgba(201,168,76,0.3);
 }
 
 .tirada-runa-saliendo {
   position: absolute;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: var(--gold);
-  text-shadow: 0 0 20px var(--gold-glow), 0 0 40px rgba(201, 168, 76, 0.5);
+  text-shadow: 0 0 15px var(--gold-glow), 0 0 30px rgba(201, 168, 76, 0.4);
   transform: translate(-50%, -50%) scale(0);
   z-index: 10;
   pointer-events: none;
+  /* Stone style */
+  background: linear-gradient(145deg, #2a2d3a 0%, #1e2028 50%, #252830 100%);
+  border: 1.5px solid var(--border);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.05),
+    inset 0 -2px 4px rgba(0,0,0,0.3),
+    0 4px 8px rgba(0,0,0,0.4);
+  padding: 0.8rem;
 }
 
 /* ── Tirada Explanations ───────────────────────────────────── */
