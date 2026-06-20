@@ -826,11 +826,11 @@ function hacerTirada() {
 
 function getPositions(tipo) {
   switch(tipo) {
-    case 1: return [{x: 50, y: 50}];
-    case 3: return [{x: 20, y: 50}, {x: 50, y: 50}, {x: 80, y: 50}];
-    case 5: return [{x: 50, y: 20}, {x: 20, y: 50}, {x: 50, y: 50}, {x: 80, y: 50}, {x: 50, y: 80}];
-    case 7: return [{x: 15, y: 30}, {x: 35, y: 30}, {x: 50, y: 50}, {x: 65, y: 30}, {x: 85, y: 30}, {x: 35, y: 70}, {x: 65, y: 70}];
-    default: return [{x: 50, y: 50}];
+    case 1: return [{x: 50, y: 45}];
+    case 3: return [{x: 15, y: 45}, {x: 50, y: 45}, {x: 85, y: 45}];
+    case 5: return [{x: 50, y: 15}, {x: 15, y: 45}, {x: 50, y: 45}, {x: 85, y: 45}, {x: 50, y: 75}];
+    case 7: return [{x: 12, y: 25}, {x: 35, y: 25}, {x: 50, y: 45}, {x: 65, y: 25}, {x: 88, y: 25}, {x: 35, y: 70}, {x: 65, y: 70}];
+    default: return [{x: 50, y: 45}];
   }
 }
 
