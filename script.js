@@ -764,11 +764,23 @@ function hacerTirada() {
   const spread = SPREADS[tiradaTipo] || SPREADS[1];
   const posiciones = getPositions(tiradaTipo);
   
+  // Stone shapes array (same as reference)
+  const stoneShapes = [
+    '45% 55% 50% 50% / 60% 40% 60% 40%',
+    '55% 45% 45% 55% / 40% 60% 45% 55%',
+    '40% 60% 55% 45% / 55% 45% 50% 50%',
+    '50% 50% 40% 60% / 45% 55% 60% 40%',
+    '60% 40% 50% 50% / 50% 50% 45% 55%',
+    '45% 55% 60% 40% / 55% 45% 40% 60%',
+    '50% 50% 45% 55% / 40% 60% 55% 45%'
+  ];
+  
   posiciones.forEach((pos, i) => {
     const slot = document.createElement('div');
     slot.className = 'tirada-slot';
     slot.style.left = pos.x + '%';
     slot.style.top = pos.y + '%';
+    slot.style.borderRadius = stoneShapes[i % stoneShapes.length];
     slot.innerHTML = `<span class="tirada-slot-label">${spread.posiciones[i]}</span>`;
     tablero.appendChild(slot);
   });
@@ -786,12 +798,13 @@ function hacerTirada() {
     const r = runas[currentRune];
     const pos = posiciones[currentRune];
     
-    // Create rune element
+    // Create rune element with stone shape
     const runaEl = document.createElement('div');
     runaEl.className = 'tirada-runa-saliendo';
     runaEl.innerHTML = r.simbolo;
     runaEl.style.left = '50%';
     runaEl.style.top = '50%';
+    runaEl.style.borderRadius = stoneShapes[currentRune % stoneShapes.length];
     tablero.appendChild(runaEl);
     
     // Animate from bag to position
