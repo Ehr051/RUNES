@@ -2942,11 +2942,39 @@ body::before {
   cursor: pointer;
   transition: all 0.2s ease;
   letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-premium:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 30px var(--gold-glow);
+}
+
+/* Promo styles */
+.promo-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #e74c3c;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0 var(--radius) 0 var(--radius);
+  letter-spacing: 0.05em;
+}
+
+.precio-original {
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+.precio-promo {
+  color: #111;
+  font-size: 1.1em;
 }
 
 .premium-nota {
