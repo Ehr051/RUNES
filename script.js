@@ -928,11 +928,14 @@ function iniciarLeccion(id, practicando = false) {
     return;
   }
 
-  leccionActual = { ...leccion, practicando };
+  // Shuffle exercises for variety
+  const ejerciciosMezclados = shuffleArray([...leccion.ejercicios]);
+  
+  leccionActual = { ...leccion, ejercicios: ejerciciosMezclados, practicando };
   ejercicioActual = 0;
   xpGanados = 0;
   respuestasCorrectas = 0;
-  totalEjercicios = leccion.ejercicios.length;
+  totalEjercicios = ejerciciosMezclados.length;
 
   document.getElementById('ejercicio-xp-actual').textContent = practicando ? 'Repaso' : '+0 XP';
   document.getElementById('progreso-ejercicio').style.width = '0%';
@@ -1580,7 +1583,7 @@ function iniciarDesafioDiario() {
   leccionActual = {
     id: 'desafio-' + getHoyStr(),
     titulo: 'Desafío Diario',
-    ejercicios: generarEjerciciosDiarios(),
+    ejercicios: shuffleArray(generarEjerciciosDiarios()),
     runas_ids: [],
     esDesafio: true
   };
@@ -1614,8 +1617,9 @@ function renderDesafioDiario() {
 // ── Resultados ───────────────────────────────────────────────
 function mostrarResultados() {
   const precision = totalEjercicios > 0 ? Math.round((respuestasCorrectas/totalEjercicios)*100) : 0;
+  const aprueba = precision >= 70;
 
-  document.getElementById('resultado-xp').textContent = xpGanados;
+  document.getElementById('resultado-xp').textContent = aprueba ? xpGanados : 0;
   document.getElementById('resultado-precision').textContent = `${precision}%`;
   document.getElementById('resultado-correctas').textContent = `${respuestasCorrectas}/${totalEjercicios}`;
 
@@ -1626,26 +1630,27 @@ function mostrarResultados() {
   } else if (precision >= 80) {
     document.getElementById('resultado-icono').textContent = '🎉';
     document.getElementById('resultado-titulo').textContent = '¡Excelente trabajo!';
-  } else if (precision >= 60) {
+  } else if (aprueba) {
     document.getElementById('resultado-icono').textContent = '👍';
-    document.getElementById('resultado-titulo').textContent = '¡Buen intento!';
+    document.getElementById('resultado-titulo').textContent = '¡Aprobaste! Pero podés mejorar.';
   } else {
-    document.getElementById('resultado-icono').textContent = '💪';
-    document.getElementById('resultado-titulo').textContent = '¡Seguí practicando!';
+    document.getElementById('resultado-icono').textContent = '❌';
+    document.getElementById('resultado-titulo').textContent = `Necesitás 70% para aprobar. Tenés ${precision}%`;
   }
 
-  // Update progreso (skip in practice mode)
-  if (!leccionActual.practicando) {
+  // Update progreso (skip in practice mode, only if approved)
+  if (!leccionActual.practicando && aprueba) {
     progreso.xp += xpGanados;
   }
 
   // Handle daily challenge
   if (leccionActual.esDesafio) {
-    progreso.desafioDiario = { fecha: getHoyStr(), completado: true, precision };
+    progreso.desafioDiario = { fecha: getHoyStr(), completado: aprueba, precision };
     if (precision === 100) {
       progreso.xp += 50; // bonus XP for perfect daily
     }
-  } else if (!leccionActual.practicando) {
+  } else if (!leccionActual.practicando && aprueba) {
+    // Only mark as completed if approved (70%+)
     if (!progreso.leccionesCompletadas.includes(leccionActual.id)) {
       progreso.leccionesCompletadas.push(leccionActual.id);
     }
