@@ -281,16 +281,17 @@
         <button class="tirada-tipo activa" data-tipo="1">1 Runa</button>
         <button class="tirada-tipo" data-tipo="3">3 Runas</button>
         <button class="tirada-tipo" data-tipo="5">5 Runas</button>
+        <button class="tirada-tipo" data-tipo="7">7 Runas</button>
       </div>
       <div class="tirada-visual">
-        <div class="tirada-bolsa" id="tirada-bolsa">
+        <div class="tirada-bolsa" id="tirada-bolsa" onclick="hacerTirada()">
           <div class="bolsa-runas">ᚠᚢᚦᚨᚱᚲᚷᚹ</div>
           <p class="bolsa-texto">Tocá para sacar las runas</p>
         </div>
       </div>
       <div class="tirada-resultado-container" id="tirada-resultado-container"></div>
       <div class="tirada-acciones" id="tirada-acciones">
-        <button class="btn-primary btn-full" id="btn-hacer-tirada">🔮 Lanzar Runas</button>
+        <button class="btn-primary btn-full" id="btn-hacer-tirada" onclick="hacerTirada()">🔮 Lanzar Runas</button>
       </div>
     </main>
     <nav class="nav-inferior">

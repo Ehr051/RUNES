@@ -91,6 +91,22 @@ const SPREADS = {
       texto += `Las runas centrales (situación y desafío) son las más importantes para tu interpretación.`;
       return texto;
     }
+  },
+  7: {
+    nombre: "Camino del Guerrero",
+    descripcion: "Las 7 runas del viaje completo",
+    posiciones: ["Pasado lejano", "Pasado reciente", "Situación actual", "Desafío oculto", "Fuerza disponible", "Consejo sabio", "Destino probable"],
+    interpretar: (runas) => {
+      let texto = `Tu historia comienza con ${runas[0].nombre} — las raíces de tu camino. `;
+      texto += `Recientemente, ${runas[1].nombre} ${runas[1].invertida ? 'te ha desafiado' : 'te ha preparado'}. `;
+      texto += `Hoy, ${runas[0].nombre} ${runas[2].invertida ? 'está bloqueada' : 'te guía'} en tu situación actual. `;
+      texto += `Pero hay un desafío oculto: ${runas[3].nombre}${runas[3].invertida ? ' (invertida)' : ''}. `;
+      texto += `Tu fuerza disponible es ${runas[4].nombre} — usala. `;
+      texto += `El consejo sabio de las runas: ${runas[5].nombre}. `;
+      texto += `Y tu destino, si seguís este camino, es ${runas[6].nombre}${runas[6].invertida ? ' — con precaución' : ''}. `;
+      texto += `Esta tirada revela un viaje completo: de dónde venís hacia dónde vas.`;
+      return texto;
+    }
   }
 };
 
