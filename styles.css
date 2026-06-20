@@ -1120,64 +1120,89 @@ body::before {
 }
 
 .tirada-bolsa {
-  width: 180px;
-  height: 160px;
+  width: 160px;
+  height: 180px;
   background: 
-    radial-gradient(ellipse at 50% 120%, #1a1209 0%, transparent 50%),
-    linear-gradient(180deg, #6b4423 0%, #5c3d1f 20%, #4a3520 60%, #3d2914 100%);
-  border: 2px solid #2a1d0e;
-  border-radius: 0 0 50% 50% / 0 0 70% 70%;
+    radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 30%),
+    radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.2) 0%, transparent 40%),
+    linear-gradient(180deg, #7a5230 0%, #6b4423 15%, #5c3d1f 40%, #4a3520 70%, #3d2914 100%);
+  border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: visible;
-  box-shadow: 
-    inset 0 2px 4px rgba(255,255,255,0.1),
-    inset 0 -4px 8px rgba(0,0,0,0.3),
-    0 8px 20px rgba(0,0,0,0.5);
+  /* Bag shape: wide top, narrow neck, round bottom */
+  clip-path: polygon(
+    10% 0%, 90% 0%,
+    85% 8%, 78% 12%,
+    75% 15%, 72% 20%,
+    70% 25%, 68% 35%,
+    65% 50%, 60% 65%,
+    55% 78%, 50% 88%,
+    45% 95%, 40% 100%,
+    35% 98%, 30% 92%,
+    25% 82%, 20% 70%,
+    18% 55%, 16% 40%,
+    15% 30%, 16% 22%,
+    18% 15%, 22% 10%,
+    25% 6%
+  );
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
-/* Leather texture */
+/* Leather grain texture */
 .tirada-bolsa::before {
   content: '';
   position: absolute;
   inset: 0;
   background: 
+    repeating-conic-gradient(
+      rgba(0,0,0,0.03) 0% 25%,
+      transparent 0% 50%
+    ) 0 0 / 4px 4px,
     repeating-linear-gradient(
-      90deg,
+      45deg,
       transparent,
-      transparent 6px,
-      rgba(0,0,0,0.08) 6px,
-      rgba(0,0,0,0.08) 7px
+      transparent 2px,
+      rgba(0,0,0,0.04) 2px,
+      rgba(0,0,0,0.04) 3px
     );
-  border-radius: inherit;
+  clip-path: inherit;
   pointer-events: none;
 }
 
-/* Drawstring top */
+/* Drawstring area */
 .tirada-bolsa::after {
   content: '';
   position: absolute;
-  top: -6px;
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 12px;
-  background: linear-gradient(180deg, #3d2914 0%, #2a1d0e 100%);
-  border-radius: 10px 10px 0 0;
-  border: 1.5px solid #1a1209;
-  border-bottom: none;
+  width: 70%;
+  height: 16px;
+  background: 
+    linear-gradient(180deg, #4a3520 0%, #3d2914 100%);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  border: 1.5px solid #2a1d0e;
+  border-top: none;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
 }
-  height: 25px;
-  background: linear-gradient(180deg, #6b4423 0%, #5c3d1f 50%, #4a3520 100%);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  box-shadow: 
-    inset 0 3px 6px rgba(255,255,255,0.15),
-    inset 0 -2px 4px rgba(0,0,0,0.3);
+
+/* Stitching line */
+.tirada-bolsa .bolsa-costura {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65%;
+  height: 0;
+  border-top: 1.5px dashed rgba(139, 119, 80, 0.5);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .tirada-bolsa:hover {
@@ -1203,21 +1228,23 @@ body::before {
 }
 
 .bolsa-runas {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: var(--gold);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   position: relative;
   z-index: 1;
-  text-shadow: 0 0 15px var(--gold-glow), 0 0 30px rgba(201,168,76,0.4);
+  text-shadow: 0 0 10px var(--gold-glow), 0 0 20px rgba(201,168,76,0.3);
+  margin-top: 40px;
 }
 
 .bolsa-texto {
-  font-size: 0.75rem;
-  color: #8a7a5a;
-  margin-top: 0.8rem;
+  font-size: 0.65rem;
+  color: #6b5a3a;
+  margin-top: 0.4rem;
   position: relative;
   z-index: 1;
   font-style: italic;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /* ── Tirada Board ──────────────────────────────────────────── */
