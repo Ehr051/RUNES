@@ -1120,12 +1120,12 @@ body::before {
 }
 
 .tirada-bolsa {
-  width: 200px;
-  height: 190px;
+  width: 180px;
+  height: 210px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
 }
 
 .tirada-bolsa:hover {

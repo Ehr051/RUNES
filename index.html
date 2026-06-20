@@ -285,94 +285,97 @@
       </div>
       <div class="tirada-visual">
         <div class="tirada-bolsa" id="tirada-bolsa" onclick="hacerTirada()">
-          <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="leatherGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#8B6914;stop-opacity:1" />
-                <stop offset="30%" style="stop-color:#704214;stop-opacity:1" />
-                <stop offset="70%" style="stop-color:#5C3317;stop-opacity:1" />
+                <stop offset="0%" style="stop-color:#9B7930;stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#8B6914;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#704214;stop-opacity:1" />
+                <stop offset="75%" style="stop-color:#5C3317;stop-opacity:1" />
                 <stop offset="100%" style="stop-color:#3E2210;stop-opacity:1" />
               </linearGradient>
-              <linearGradient id="leatherDark" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color:#5C3317;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#2A1508;stop-opacity:1" />
-              </linearGradient>
               <filter id="leatherTexture">
-                <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise"/>
-                <feDiffuseLighting in="noise" lighting-color="#8B6914" surfaceScale="1.2" result="diffLight">
-                  <feDistantLight azimuth="45" elevation="55"/>
+                <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="5" result="noise"/>
+                <feDiffuseLighting in="noise" lighting-color="#A08040" surfaceScale="1" result="diffLight">
+                  <feDistantLight azimuth="45" elevation="60"/>
                 </feDiffuseLighting>
                 <feComposite in="SourceGraphic" in2="diffLight" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
               </filter>
+              <radialGradient id="bellyShade" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" style="stop-color:#8B6914;stop-opacity:0.3" />
+                <stop offset="100%" style="stop-color:#3E2210;stop-opacity:0" />
+              </radialGradient>
             </defs>
             
-            <!-- Bag body - wide bottom, shorter -->
-            <path d="M 50 45 
-                     Q 50 38, 60 32 
-                     L 95 22 
-                     Q 110 18, 120 18 
-                     Q 130 18, 145 22 
-                     L 180 32 
-                     Q 190 38, 190 45 
-                     L 188 60 
-                     Q 185 80, 180 100 
-                     Q 175 120, 172 135 
-                     Q 168 150, 165 162 
-                     Q 160 175, 150 185 
-                     Q 138 195, 120 200 
-                     Q 100 205, 80 200 
-                     Q 62 195, 50 185 
-                     Q 40 175, 35 162 
-                     Q 32 150, 28 135 
-                     Q 25 120, 22 100 
-                     Q 18 80, 15 60 
+            <!-- Drop shadow on surface -->
+            <ellipse cx="100" cy="228" rx="45" ry="6" fill="#1a1209" opacity="0.5"/>
+            
+            <!-- Main bag body - pear/inverted drop shape -->
+            <path d="M 78 52 
+                     Q 80 42, 90 38 
+                     L 95 36 
+                     Q 100 35, 105 36 
+                     L 110 38 
+                     Q 120 42, 122 52 
+                     L 125 65 
+                     Q 130 80, 135 95 
+                     Q 142 115, 148 130 
+                     Q 155 148, 158 162 
+                     Q 162 178, 158 192 
+                     Q 152 208, 135 218 
+                     Q 120 225, 100 228 
+                     Q 80 225, 65 218 
+                     Q 48 208, 42 192 
+                     Q 38 178, 42 162 
+                     Q 45 148, 52 130 
+                     Q 58 115, 65 95 
+                     Q 70 80, 75 65 
                      Z" 
                   fill="url(#leatherGrad)" 
                   stroke="#2A1508" 
-                  stroke-width="2"
+                  stroke-width="1.5"
                   filter="url(#leatherTexture)"/>
             
-            <!-- Flat bottom - bag sitting on surface -->
-            <ellipse cx="100" cy="202" rx="55" ry="8" fill="#2A1508" opacity="0.4"/>
+            <!-- Round belly highlight -->
+            <ellipse cx="100" cy="180" rx="42" ry="30" fill="url(#bellyShade)"/>
             
-            <!-- Bag opening shadow -->
-            <ellipse cx="120" cy="28" rx="50" ry="10" fill="#2A1508" opacity="0.5"/>
+            <!-- Leather fold creases at neck -->
+            <path d="M 80 58 Q 100 62, 120 58" stroke="#4A2810" stroke-width="2" fill="none" opacity="0.6"/>
+            <path d="M 82 64 Q 100 67, 118 64" stroke="#4A2810" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M 84 70 Q 100 72, 116 70" stroke="#4A2810" stroke-width="1" fill="none" opacity="0.3"/>
             
-            <!-- Leather fold at top -->
-            <path d="M 55 42 Q 120 50, 185 42" 
-                  stroke="#4A2810" stroke-width="2.5" fill="none" opacity="0.7"/>
+            <!-- Drawstring channel -->
+            <path d="M 82 48 Q 100 52, 118 48" stroke="#3E2210" stroke-width="3" fill="none"/>
             
-            <!-- Stitching left -->
-            <path d="M 55 55 Q 60 85, 68 115 Q 74 140, 82 165" 
-                  stroke="#8B7355" stroke-width="1" fill="none" stroke-dasharray="4,4" opacity="0.5"/>
+            <!-- Drawstring rope -->
+            <path d="M 85 45 Q 92 50, 100 48 Q 108 46, 115 45" stroke="#5C4A2A" stroke-width="2" fill="none"/>
             
-            <!-- Stitching right -->
-            <path d="M 185 55 Q 180 85, 172 115 Q 166 140, 158 165" 
-                  stroke="#8B7355" stroke-width="1" fill="none" stroke-dasharray="4,4" opacity="0.5"/>
+            <!-- Rope ends hanging -->
+            <path d="M 85 45 Q 78 55, 75 68 Q 73 78, 76 85" stroke="#5C4A2A" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M 115 45 Q 122 55, 125 68 Q 127 78, 124 85" stroke="#5C4A2A" stroke-width="2" fill="none" stroke-linecap="round"/>
             
-            <!-- Drawstring -->
-            <path d="M 72 25 Q 95 32, 120 30 Q 145 28, 168 25" 
-                  stroke="#3E2210" stroke-width="2.5" fill="none"/>
+            <!-- Rope knot left -->
+            <circle cx="76" cy="86" r="3" fill="#5C4A2A"/>
             
-            <!-- Drawstring ends -->
-            <circle cx="72" cy="25" r="3" fill="#3E2210"/>
-            <circle cx="168" cy="25" r="3" fill="#3E2210"/>
+            <!-- Rope knot right -->
+            <circle cx="124" cy="86" r="3" fill="#5C4A2A"/>
             
-            <!-- Hanging cord left -->
-            <path d="M 72 25 Q 62 38, 57 52 Q 54 62, 58 68" 
-                  stroke="#3E2210" stroke-width="2" fill="none"/>
+            <!-- Stitching left side -->
+            <path d="M 78 75 Q 68 100, 58 130 Q 50 158, 52 185" stroke="#8B7355" stroke-width="0.8" fill="none" stroke-dasharray="3,4" opacity="0.4"/>
             
-            <!-- Hanging cord right -->
-            <path d="M 168 25 Q 178 38, 183 52 Q 186 62, 182 68" 
-                  stroke="#3E2210" stroke-width="2" fill="none"/>
+            <!-- Stitching right side -->
+            <path d="M 122 75 Q 132 100, 142 130 Q 150 158, 148 185" stroke="#8B7355" stroke-width="0.8" fill="none" stroke-dasharray="3,4" opacity="0.4"/>
             
-            <!-- Leather wear marks -->
-            <path d="M 70 120 Q 78 128, 85 124" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
-            <path d="M 140 140 Q 148 148, 155 144" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
-            <path d="M 95 160 Q 102 168, 110 164" stroke="#6B4226" stroke-width="1" fill="none" opacity="0.4"/>
+            <!-- Leather grain lines -->
+            <path d="M 70 140 Q 80 148, 90 144" stroke="#6B4226" stroke-width="0.8" fill="none" opacity="0.3"/>
+            <path d="M 110 155 Q 120 162, 130 158" stroke="#6B4226" stroke-width="0.8" fill="none" opacity="0.3"/>
+            <path d="M 85 175 Q 95 182, 105 178" stroke="#6B4226" stroke-width="0.8" fill="none" opacity="0.3"/>
             
-            <!-- Highlight -->
-            <path d="M 60 65 Q 70 80, 66 105" stroke="rgba(255,255,255,0.08)" stroke-width="5" fill="none"/>
+            <!-- Main highlight -->
+            <path d="M 68 95 Q 62 120, 60 145" stroke="rgba(255,255,255,0.06)" stroke-width="8" fill="none" stroke-linecap="round"/>
+            
+            <!-- Opening darkness inside -->
+            <ellipse cx="100" cy="42" rx="18" ry="6" fill="#1a1209" opacity="0.7"/>
           </svg>
           <div class="bolsa-runas">ᚠᚢᚦᚨᚱᚲᚷᚹ</div>
           <p class="bolsa-texto">Tocá para sacar</p>
