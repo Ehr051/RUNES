@@ -628,9 +628,9 @@ body::before {
 }
 .intro-texto {
   font-family: 'Crimson Text', 'Georgia', serif;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text);
   text-align: center;
   font-style: italic;
   letter-spacing: 0.02em;
