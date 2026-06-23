@@ -17,7 +17,7 @@ const firebaseConfig = {
 
 // Init Firebase (compat mode)
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+let auth = null;
 const db = firebase.firestore();
 const functions = firebase.functions();
 
@@ -424,86 +424,78 @@ function loadProgreso() {
 let _authInitialized = false;
 
 function initAuth() {
-  auth.onAuthStateChanged(async (user) => {
+  if (!auth) { console.log('[AUTH] No auth instance'); return; }
+  console.log('[AUTH] initAuth: registering onAuthStateChanged');
+  
+  auth.onAuthStateChanged((user) => {
+    console.log('[AUTH] onAuthStateChanged:', user ? 'LOGGED IN ' + user.uid : 'LOGGED OUT');
     if (user) {
       currentUser = user;
       _authInitialized = true;
-      // Load from Firestore (skip if offline)
-      if (!navigator.onLine) {
-        console.log('Offline mode - using local data');
-        return;
-      }
-      try {
-        const doc = await db.collection('users').doc(user.uid).get();
-        if (doc.exists) {
-          progreso = { ...defaultProgreso(), ...doc.data() };
-        } else {
-          progreso = defaultProgreso();
-          progreso.nombre = user.displayName || 'Guerrero';
-          // Save new user to Firestore
-          await db.collection('users').doc(user.uid).set(progreso);
-        }
-      } catch(e) {
-        console.error('Firestore error:', e);
-        progreso = loadProgreso();
-        if (!progreso.nombre || progreso.nombre === 'Guerrero') {
-          progreso.nombre = user.displayName || 'Guerrero';
-        }
+      progreso = loadProgreso();
+      if (!progreso.nombre || progreso.nombre === 'Guerrero') {
+        progreso.nombre = user.displayName || 'Guerrero';
       }
       localStorage.setItem('nova_progreso', JSON.stringify(progreso));
       afterLogin();
+      // Sync Firestore in background (non-blocking)
+      if (navigator.onLine) {
+        db.collection('users').doc(user.uid).get().then(doc => {
+          if (doc.exists) {
+            progreso = { ...defaultProgreso(), ...doc.data() };
+          } else {
+            progreso = defaultProgreso();
+            progreso.nombre = user.displayName || 'Guerrero';
+            db.collection('users').doc(user.uid).set(progreso);
+          }
+          localStorage.setItem('nova_progreso', JSON.stringify(progreso));
+        }).catch(e => console.warn('[AUTH] Firestore sync failed:', e.code || e.message));
+      }
       loadDiarioFromFirestore();
     } else {
       currentUser = null;
-      // Only show login if auth was initialized and user is truly logged out
-      if (_authInitialized) {
-        progreso = loadProgreso();
-        showScreen('login');
-      }
+      _authInitialized = true;
+      progreso = loadProgreso();
+      showScreen('login');
     }
   });
 }
 
 async function loginWithEmail(email, password) {
+  if (!auth) { showToast('Firebase no configurado', 'error'); return; }
   try {
     await auth.signInWithEmailAndPassword(email, password);
-    // Navigation handled by onAuthStateChanged
+    showToast('¡Bienvenido!', 'success');
   } catch(e) {
     showToast(getAuthError(e.code), 'error');
   }
 }
 
 async function registerWithEmail(name, email, password) {
+  if (!auth) { showToast('Firebase no configurado', 'error'); return; }
   try {
     const cred = await auth.createUserWithEmailAndPassword(email, password);
     await cred.user.updateProfile({ displayName: name });
     progreso = defaultProgreso();
     progreso.nombre = name;
     await db.collection('users').doc(cred.user.uid).set(progreso);
-    // Navigation handled by onAuthStateChanged
+    showToast('¡Cuenta creada!', 'success');
   } catch(e) {
     showToast(getAuthError(e.code), 'error');
   }
 }
 
 async function loginWithGoogle() {
+  console.log('[AUTH] loginWithGoogle called');
+  if (!auth) { showToast('Firebase no configurado', 'error'); return; }
   try {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await auth.signInWithRedirect(provider);
+    await auth.signInWithPopup(provider);
   } catch(e) {
-    showToast(getAuthError(e.code), 'error');
-  }
-}
-
-// Handle redirect result on page load
-async function handleRedirectResult() {
-  try {
-    const result = await auth.getRedirectResult();
-    if (result.user) {
-      showToast('¡Conectado con Google!', 'success');
-    }
-  } catch(e) {
-    if (e.code !== 'auth/no-redirect-retrieval') {
+    console.log('[AUTH] loginWithGoogle error:', e.code);
+    if (e.code === 'auth/popup-blocked') {
+      showToast('El popup fue bloqueado. Permití popups para este sitio.', 'error');
+    } else {
       showToast(getAuthError(e.code), 'error');
     }
   }
@@ -524,29 +516,37 @@ function getAuthError(code) {
     'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres',
     'auth/invalid-email': 'Correo inválido',
     'auth/too-many-requests': 'Demasiados intentos. Esperá un momento',
+    'auth/invalid-credential': 'Correo o contraseña incorrectos',
+    'auth/invalid-login-credentials': 'Correo o contraseña incorrectos',
+    'auth/popup-blocked': 'El popup fue bloqueado. Permití popups para este sitio.',
+    'auth/popup-closed-by-user': '',
+    'auth/network-request-failed': 'Error de red. Verificá tu conexión.',
+    'auth/account-exists-with-different-credential': 'Ya existe una cuenta con este correo usando otro método de ingreso.',
   };
-  return errors[code] || 'Error al autenticar';
+  return errors[code] || 'Error al autenticar: ' + (code || 'desconocido');
 }
 
 function afterLogin() {
-  // Check streak
-  const hoy = new Date().toDateString();
-  if (progreso.ultimoDiaPracticado) {
-    const ultimo = new Date(progreso.ultimoDiaPracticado).toDateString();
-    const ayer = new Date(Date.now() - 86400000).toDateString();
-    if (ultimo !== hoy && ultimo !== ayer) {
-      progreso.streak = 0;
+  console.log('[AUTH] afterLogin called, progreso.nombre:', progreso?.nombre);
+  try {
+    // Check streak
+    const hoy = new Date().toDateString();
+    if (progreso.ultimoDiaPracticado) {
+      const ultimo = new Date(progreso.ultimoDiaPracticado).toDateString();
+      const ayer = new Date(Date.now() - 86400000).toDateString();
+      if (ultimo !== hoy && ultimo !== ayer) {
+        progreso.streak = 0;
+      }
     }
-  }
 
-  if (!progreso.nombre || progreso.nombre === 'Guerrero') {
-    showScreen('onboarding');
-  } else {
-    showScreen('inicio');
-  }
+    if (!progreso.nombre || progreso.nombre === 'Guerrero') {
+      showScreen('onboarding');
+    } else {
+      showScreen('inicio');
+    }
 
-  AudioManager.init();
-  scheduleDailyRune();
+    AudioManager.init();
+    scheduleDailyRune();
 
   // Start music after first user interaction (browser policy)
   const startMusicOnInteraction = () => {
@@ -558,6 +558,10 @@ function afterLogin() {
   };
   document.addEventListener('click', startMusicOnInteraction, { once: true });
   document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
+  } catch(e) {
+    console.error('[AUTH] afterLogin error:', e);
+    showScreen('inicio');
+  }
 }
 
 // ── Onboarding ───────────────────────────────────────────────
@@ -602,6 +606,29 @@ function renderInicio() {
   document.getElementById('streak-display').textContent = progreso.streak;
   document.getElementById('xp-display').textContent = progreso.xp;
   document.getElementById('nivel-display').textContent = Math.floor(progreso.xp / 100) + 1;
+  
+  // Runa del día (cambia cada día)
+  const hoy = new Date().toDateString();
+  const cached = localStorage.getItem('nova_runa_dia');
+  let runaDia;
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      if (parsed.fecha === hoy) {
+        runaDia = RUNAS.find(r => r.id === parsed.runaId);
+      }
+    } catch(e) {}
+  }
+  if (!runaDia) {
+    runaDia = RUNAS[Math.floor(Math.random() * RUNAS.length)];
+    localStorage.setItem('nova_runa_dia', JSON.stringify({ fecha: hoy, runaId: runaDia.id }));
+  }
+  const simbEl = document.getElementById('runa-dia-simbolo');
+  const nomEl = document.getElementById('runa-dia-nombre');
+  const sigEl = document.getElementById('runa-dia-significado');
+  if (simbEl) simbEl.textContent = runaDia.simbolo;
+  if (nomEl) nomEl.textContent = runaDia.nombre;
+  if (sigEl) sigEl.textContent = runaDia.significado;
 
   const mapa = document.getElementById('mapa-lecciones');
   let html = '';
@@ -870,6 +897,8 @@ function mostrarInterpretacion(runas, spread) {
   const container = document.getElementById('tirada-lectura');
   const interpretacion = spread.interpretar ? spread.interpretar(runas) : 'Las runas hablan por sí solas. Prestá atención a los patrones y elementos que se repiten.';
   
+  window._ultimaTirada = runas;
+  
   container.innerHTML = `
     <div class="tirada-interpretacion">
       <h3>📜 Interpretación de la Tirada</h3>
@@ -882,6 +911,12 @@ function mostrarInterpretacion(runas, spread) {
 }
 
 function guardarTiradaCompleta() {
+  const runas = window._ultimaTirada;
+  if (!runas || !runas.length) return;
+  const diario = getDiario();
+  diario.unshift({ id:Date.now(), fecha:new Date().toLocaleString(), tipo:`Tirada ${runas.length} runas`,
+    runas: runas.map(r => ({nombre:r.nombre, invertida:r.invertida, simbolo:r.simbolo})) });
+  setDiario(diario);
   showToast('Lectura guardada en tu diario', 'success');
 }
 
@@ -1896,7 +1931,7 @@ function scheduleDailyRune() {
 function sendDailyRuneNotification() {
   if (Notification.permission !== 'granted') return;
   const rune = RUNAS[Math.floor(Math.random() * RUNAS.length)];
-  new Notification('Nova Runas — Tu runa del día', {
+  new Notification('RUNES — Tu runa del día', {
     body: `${rune.simbolo} ${rune.nombre}: ${rune.significado}`,
     icon: 'img/icon.svg',
     tag: 'nova-daily-rune',
@@ -1906,6 +1941,7 @@ function sendDailyRuneNotification() {
 
 // ── Init ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('[AUTH] DOMContentLoaded fired');
   createFloatingRunes('floating-runes', 20);
   createFloatingRunes('floating-runes-home', 12);
 
@@ -1914,12 +1950,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loading-screen').classList.add('hidden');
   }, 400);
 
-  // Auth - defer non-critical
-  requestIdleCallback(() => {
-    handleRedirectResult();
-    initAuth();
-    initSettings();
-  });
+  // Auth - initialize here so redirect isn't consumed by early firebase.auth()
+  auth = firebase.auth();
+  auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+  console.log('[AUTH] auth instance:', auth ? 'OK' : 'NULL');
+  initAuth();
+  initSettings();
 
   // Event listeners
   document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -2011,6 +2047,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Settings
   document.getElementById('btn-settings')?.addEventListener('click', () => {
     document.getElementById('modal-settings').classList.remove('hidden');
+  });
+
+  // Profile - Edit
+  document.getElementById('btn-edit-profile')?.addEventListener('click', () => {
+    document.getElementById('edit-profile-name').value = progreso.nombre || '';
+    document.getElementById('modal-edit-profile').classList.remove('hidden');
+  });
+  document.getElementById('modal-edit-profile-cerrar')?.addEventListener('click', () => {
+    document.getElementById('modal-edit-profile').classList.add('hidden');
+  });
+  document.getElementById('btn-save-profile')?.addEventListener('click', async () => {
+    const newName = document.getElementById('edit-profile-name').value.trim();
+    if (!newName) { showToast('El nombre no puede estar vacío', 'error'); return; }
+    progreso.nombre = newName;
+    saveProgreso();
+    if (currentUser) {
+      try { await currentUser.updateProfile({ displayName: newName }); } catch(e) {}
+      try { await db.collection('users').doc(currentUser.uid).update({ nombre: newName }); } catch(e) {}
+    }
+    document.getElementById('perfil-nombre').textContent = newName;
+    document.getElementById('modal-edit-profile').classList.add('hidden');
+    showToast('Perfil actualizado', 'success');
   });
 
   // Profile

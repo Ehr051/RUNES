@@ -47,6 +47,19 @@ self.addEventListener('fetch', (e) => {
     return;
   }
   
+  // HTML: network-first (prevent stale cache during redirect/auth)
+  if (url.pathname.endsWith('/') || url.pathname.endsWith('index.html') || 
+      url.pathname === '/' || e.request.headers.get('accept')?.includes('text/html')) {
+    e.respondWith(
+      fetch(e.request).then(resp => {
+        const clone = resp.clone();
+        caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+        return resp;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+  
   // Images: cache-first
   if (url.pathname.includes('/img/')) {
     e.respondWith(

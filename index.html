@@ -12,25 +12,25 @@
   <title>Runas — Aprendé las 24 Runas del Elder Futhark | App Vikinga</title>
   <meta name="description" content="Aprendé las 24 runas del Elder Futhark con ejercicios interactivos, tiradas nórdicas y desafíos diarios. App gratuita estilo vikingo con significados auténticos.">
   <meta name="keywords" content="runas, elder futhark, runas vikingas, aprender runas, significado runas, tirada runas, nórdico, vikingo, algiz, fehu, odin">
-  <meta name="author" content="RUNES">
+  <meta name="author" content="Exequiel Rua — CodeBridge.com.ar">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://runes-90d8b.web.app/">
+  <link rel="canonical" href="https://runas.web.app/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://runes-90d8b.web.app/">
+  <meta property="og:url" content="https://runas.web.app/">
   <meta property="og:title" content="Runas — Aprendé las 24 Runas del Elder Futhark">
   <meta property="og:description" content="App gratuita para aprender las 24 runas del Elder Futhark con ejercicios interactivos, tiradas nórdicas y desafíos diarios.">
-  <meta property="og:image" content="https://runes-90d8b.web.app/img/icon-512.png">
+  <meta property="og:image" content="https://runas.web.app/img/icon-512.png">
   <meta property="og:locale" content="es_AR">
   <meta property="og:site_name" content="Runas — Elder Futhark">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://runes-90d8b.web.app/">
+  <meta name="twitter:url" content="https://runas.web.app/">
   <meta name="twitter:title" content="Runas — Aprendé las 24 Runas del Elder Futhark">
   <meta name="twitter:description" content="App gratuita para aprender las 24 runas del Elder Futhark con ejercicios interactivos y tiradas nórdicas.">
-  <meta name="twitter:image" content="https://runes-90d8b.web.app/img/icon-512.png">
+  <meta name="twitter:image" content="https://runas.web.app/img/icon-512.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
@@ -56,7 +56,7 @@
     "operatingSystem": "Web",
     "applicationCategory": "EducationalApplication",
     "description": "App gratuita para aprender las 24 runas del Elder Futhark con ejercicios interactivos, tiradas nórdicas y desafíos diarios.",
-    "url": "https://runes-90d8b.web.app/",
+    "url": "https://runas.web.app/",
     "inLanguage": "es",
     "offers": {
       "@type": "Offer",
@@ -78,7 +78,7 @@
   <!-- ═══════════════ LOADING SCREEN ═══════════════ -->
   <div id="loading-screen" class="loading-screen">
     <div class="loading-runa">ᚱ</div>
-    <div class="loading-text">N O V A &nbsp; R U N A S</div>
+    <div class="loading-text">R U N A S</div>
     <div class="loading-bar"><div class="loading-fill"></div></div>
   </div>
 
@@ -91,7 +91,7 @@
       <div class="login-header">
         <div class="login-logo">
           <span class="logo-runa">ᚱᚢᚾᚨᛋ</span>
-          <span class="logo-sub">N O V A</span>
+          <span class="logo-sub">E L D E R &nbsp; F U T H A R K</span>
         </div>
         <p class="login-tagline">Descifrá el antiguo arte de las runas nórdicas</p>
       </div>
@@ -189,6 +189,23 @@
         <p class="subtitulo">Elder Futhark — El alfabeto de los dioses</p>
       </div>
 
+      <div class="intro-runas">
+        <p>Las runas son un antiguo alfabeto sagrado nórdico, usado para comunicación, adivinación y magia. Cada runa encierra un simbolismo profundo que conecta con la naturaleza, los dioses y el destino. Descubrí su significado y dejá que te guíen.</p>
+      </div>
+
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">🗝️ Runa del Día</h2>
+        <div class="runa-del-dia" id="runa-del-dia-home">
+          <div class="runa-dia-card" onclick="showScreen('tirada')">
+            <span class="runa-dia-simbolo" id="runa-dia-simbolo">ᛟ</span>
+            <div class="runa-dia-info">
+              <span class="runa-dia-nombre" id="runa-dia-nombre">Sacá tu runa</span>
+              <span class="runa-dia-significado" id="runa-dia-significado">Tocá para conocer la runa que te guía hoy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="mapa-secciones">
         <h2 class="seccion-titulo">📜 Tus Lecciones</h2>
         <div class="mapa-lecciones" id="mapa-lecciones"></div>
@@ -221,8 +238,8 @@
 
     <nav class="nav-inferior">
       <button class="nav-btn activa" data-pantalla="inicio">
-        <span class="nav-icon">⚔️</span>
-        <span>Aprender</span>
+        <span class="nav-icon">🏠</span>
+        <span>Inicio</span>
       </button>
       <button class="nav-btn" data-pantalla="referencia">
         <span class="nav-icon">📜</span>
@@ -550,7 +567,7 @@
 
       <div class="credits-section">
         <h3>Desarrollo</h3>
-        <p>Nova Runas — Proyecto de código abierto</p>
+        <p><strong>Exequiel Rua</strong> — <a href="https://codebridge.com.ar" target="_blank" style="color:var(--accent);">CodeBridge.com.ar</a></p>
       </div>
       <div class="credits-section">
         <h3>Sistema de Runas</h3>
@@ -570,6 +587,10 @@
         <h3>Tecnologías</h3>
         <p>HTML5 · CSS3 · JavaScript ES6+</p>
         <p>Firebase Auth · Firestore</p>
+      </div>
+      <div class="credits-section">
+        <h3>Proyectos hermanos</h3>
+        <p><a href="https://aprendetarot.web.app" target="_blank" style="color:var(--accent);">🔮 TAROT</a> — Aprendé el Tarot con 4 mazos, imágenes IA y lecturas</p>
       </div>
       <div class="credits-section">
         <h3>Licencia</h3>
@@ -595,7 +616,7 @@
       <button class="modal-cerrar" id="modal-premium-cerrar">✕</button>
       <div class="modal-body">
         <div class="premium-icon">👑</div>
-        <h2 class="premium-titulo">Desbloqueá Nova Runas Pro</h2>
+        <h2 class="premium-titulo">Desbloqueá RUNES Pro</h2>
         <p class="premium-desc">Accedé a todas las lecciones, tiradas ilimitadas y contenido exclusivo</p>
         <ul class="premium-features">
           <li>✅ 10 lecciones completas</li>
@@ -642,6 +663,21 @@
             <input type="checkbox" id="setting-vibration" checked>
           </label>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MODAL EDITAR PERFIL ═══════════════ -->
+  <div id="modal-edit-profile" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button class="modal-cerrar" id="modal-edit-profile-cerrar">✕</button>
+      <div class="modal-body">
+        <h2 style="text-align:center; margin-bottom:1.2rem;">✏️ Editar Perfil</h2>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label for="edit-profile-name" style="display:block; margin-bottom:0.4rem; color:var(--text-secondary);">Nombre</label>
+          <input type="text" id="edit-profile-name" class="login-input" maxlength="20" placeholder="Tu nombre">
+        </div>
+        <button class="btn-primary btn-full" id="btn-save-profile">💾 Guardar</button>
       </div>
     </div>
   </div>

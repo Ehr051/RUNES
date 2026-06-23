@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "runas",
     "public": ".",
     "ignore": [
       "firebase.json",
