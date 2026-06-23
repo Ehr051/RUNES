@@ -189,8 +189,8 @@
         <p class="subtitulo">Elder Futhark — El alfabeto de los dioses</p>
       </div>
 
-      <div class="intro-runas">
-        <p>Las runas son un antiguo alfabeto sagrado nórdico, usado para comunicación, adivinación y magia. Cada runa encierra un simbolismo profundo que conecta con la naturaleza, los dioses y el destino. Descubrí su significado y dejá que te guíen.</p>
+      <div class="intro-card">
+        <p class="intro-texto">Las runas son un antiguo alfabeto sagrado nórdico, usado para comunicación, adivinación y magia. Cada runa encierra un simbolismo profundo que conecta con la naturaleza, los dioses y el destino. Descubrí su significado y dejá que te guíen.</p>
       </div>
 
       <div class="mapa-secciones">
@@ -204,23 +204,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="mapa-secciones">
-        <h2 class="seccion-titulo">📜 Tus Lecciones</h2>
-        <div class="mapa-lecciones" id="mapa-lecciones"></div>
-      </div>
-
-      <div class="mapa-secciones">
-        <h2 class="seccion-titulo">⚡ Desafío Diario</h2>
-        <button class="btn-desafio-diario" id="btn-desafio-diario">
-          <div class="desafio-icono">⚡</div>
-          <div class="desafio-info">
-            <span class="desafio-titulo">Desafío del día</span>
-            <span class="desafio-desc">5 runas al azar — +50 XP bonus</span>
-          </div>
-          <span class="desafio-estado" id="desafio-estado">▶</span>
-        </button>
       </div>
 
       <div class="mapa-secciones">
@@ -241,6 +224,10 @@
         <span class="nav-icon">🏠</span>
         <span>Inicio</span>
       </button>
+      <button class="nav-btn" data-pantalla="aprender">
+        <span class="nav-icon">⚔️</span>
+        <span>Aprender</span>
+      </button>
       <button class="nav-btn" data-pantalla="referencia">
         <span class="nav-icon">📜</span>
         <span>Runas</span>
@@ -257,6 +244,50 @@
         <span>Perfil</span>
       </button>
     </nav>
+  </div>
+
+  <!-- ═══════════════ PANTALLA APRENDER ═══════════════ -->
+  <div id="pantalla-aprender" class="pantalla">
+    <header class="header-inicio">
+      <div class="header-top">
+        <div class="user-info">
+          <span class="user-avatar">⚔️</span>
+          <span class="user-name">Lecciones</span>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-pill">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-valor" id="aprender-streak">0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-valor" id="aprender-xp">0</span>
+          <span class="stat-label">XP</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon">⚔️</span>
+          <span class="stat-valor" id="aprender-nivel">1</span>
+        </div>
+      </div>
+    </header>
+    <main class="main-inicio">
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">📜 Tus Lecciones</h2>
+        <div class="mapa-lecciones" id="mapa-lecciones"></div>
+      </div>
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">⚡ Desafío Diario</h2>
+        <button class="btn-desafio-diario" id="btn-desafio-diario">
+          <div class="desafio-icono">⚡</div>
+          <div class="desafio-info">
+            <span class="desafio-titulo">Desafío del día</span>
+            <span class="desafio-desc">5 runas al azar — +50 XP bonus</span>
+          </div>
+          <span class="desafio-estado" id="desafio-estado">▶</span>
+        </button>
+      </div>
+    </main>
   </div>
 
   <!-- ═══════════════ PANTALLA REFERENCIA ═══════════════ -->

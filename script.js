@@ -591,6 +591,7 @@ function showScreen(name) {
   });
 
   if (name === 'inicio') renderInicio();
+  if (name === 'aprender') renderAprender();
   if (name === 'referencia') renderReferencia();
   if (name === 'diario') renderDiario();
   if (name === 'perfil') renderPerfil();
@@ -629,6 +630,13 @@ function renderInicio() {
   if (simbEl) simbEl.textContent = runaDia.simbolo;
   if (nomEl) nomEl.textContent = runaDia.nombre;
   if (sigEl) sigEl.textContent = runaDia.significado;
+}
+
+function renderAprender() {
+  if (!progreso) progreso = defaultProgreso();
+  document.getElementById('aprender-streak').textContent = progreso.streak;
+  document.getElementById('aprender-xp').textContent = progreso.xp;
+  document.getElementById('aprender-nivel').textContent = Math.floor(progreso.xp / 100) + 1;
 
   const mapa = document.getElementById('mapa-lecciones');
   let html = '';
