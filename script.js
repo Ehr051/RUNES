@@ -629,6 +629,16 @@ function renderInicio() {
   if (simbEl) simbEl.textContent = runaDia.simbolo;
   if (nomEl) nomEl.textContent = runaDia.nombre;
   if (sigEl) sigEl.textContent = runaDia.significado;
+  // Resetear flip cada vez que se renderiza inicio
+  const flipper = document.getElementById('runa-dia-flipper');
+  if (flipper) flipper.classList.remove('revelada');
+  const consejoEl = document.getElementById('runa-dia-consejo');
+  if (consejoEl) consejoEl.textContent = runaDia.consejo;
+}
+
+function revelarRunaDia() {
+  const flipper = document.getElementById('runa-dia-flipper');
+  if (flipper) flipper.classList.add('revelada');
 }
 
 function renderAprender() {

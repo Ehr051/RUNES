@@ -198,11 +198,20 @@
       <div class="mapa-secciones">
         <h2 class="seccion-titulo">🗝️ Runa del Día</h2>
         <div class="runa-del-dia" id="runa-del-dia-home">
-          <div class="runa-dia-card" onclick="showScreen('tirada')">
-            <span class="runa-dia-simbolo" id="runa-dia-simbolo">ᛟ</span>
-            <div class="runa-dia-info">
-              <span class="runa-dia-nombre" id="runa-dia-nombre">Sacá tu runa</span>
-              <span class="runa-dia-significado" id="runa-dia-significado">Tocá para conocer la runa que te guía hoy</span>
+          <div class="runa-dia-flip-container" onclick="revelarRunaDia()">
+            <div class="runa-dia-flipper" id="runa-dia-flipper">
+              <div class="runa-dia-front">
+                <div class="runa-dia-piedra">
+                  <span class="runa-dia-pregunta">ᛟ</span>
+                  <span class="runa-dia-toque">Tocá la piedra</span>
+                </div>
+              </div>
+              <div class="runa-dia-back">
+                <span class="runa-dia-simbolo" id="runa-dia-simbolo">ᛟ</span>
+                <span class="runa-dia-nombre" id="runa-dia-nombre">Cargando...</span>
+                <p class="runa-dia-significado" id="runa-dia-significado"></p>
+                <p class="runa-dia-consejo" id="runa-dia-consejo"></p>
+              </div>
             </div>
           </div>
         </div>
