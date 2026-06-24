@@ -686,11 +686,18 @@ body::before {
 }
 
 .seccion-titulo {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--gold);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
+}
+
+.seccion-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
 .mapa-secciones {
@@ -1129,19 +1136,19 @@ body::before {
 
 .runa-ref-nombre {
   display: block;
-  font-size: clamp(0.6rem, 2vw, 0.75rem);
-  color: var(--text-dim);
-  font-weight: 500;
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  color: var(--text);
+  font-weight: 600;
   position: relative;
   z-index: 1;
   text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 .runa-ref-aett {
   display: block;
-  font-size: 0.6rem;
-  color: var(--text-dim);
+  font-size: 0.65rem;
+  color: var(--text-muted);
   margin-top: 0.15rem;
   position: relative;
   z-index: 1;
@@ -2896,7 +2903,8 @@ body::before {
 }
 
 .modal-runa-nombre {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  color: var(--gold);
   margin-bottom: 0.3rem;
 }
 

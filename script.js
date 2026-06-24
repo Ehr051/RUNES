@@ -592,7 +592,6 @@ function showScreen(name) {
 
   if (name === 'inicio') renderInicio();
   if (name === 'aprender') renderAprender();
-  if (name === 'referencia') renderReferencia();
   if (name === 'diario') renderDiario();
   if (name === 'perfil') renderPerfil();
   if (name === 'onboarding') initOnboarding();
@@ -661,6 +660,7 @@ function renderAprender() {
   });
   mapa.innerHTML = html;
   renderDesafioDiario();
+  renderReferencia();
 }
 
 // ── Referencia ───────────────────────────────────────────────

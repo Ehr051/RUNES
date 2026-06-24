@@ -228,10 +228,6 @@
         <span class="nav-icon">⚔️</span>
         <span>Aprender</span>
       </button>
-      <button class="nav-btn" data-pantalla="referencia">
-        <span class="nav-icon">📜</span>
-        <span>Runas</span>
-      </button>
       <button class="nav-btn" data-pantalla="tirada">
         <span class="nav-icon-circle">ᛟ</span>
       </button>
@@ -252,7 +248,7 @@
       <div class="header-top">
         <div class="user-info">
           <span class="user-avatar">⚔️</span>
-          <span class="user-name">Lecciones</span>
+          <span class="user-name">Aprendé las Runas</span>
         </div>
       </div>
       <div class="stats-bar">
@@ -273,7 +269,19 @@
     </header>
     <main class="main-inicio">
       <div class="mapa-secciones">
-        <h2 class="seccion-titulo">📜 Tus Lecciones</h2>
+        <h2 class="seccion-titulo">📜 Elder Futhark</h2>
+        <p class="seccion-desc">Las 24 runas del alfabeto nórdico — tocá cada una para ver su significado</p>
+        <div class="filtro-aett">
+          <button class="filtro-btn activa" data-aett="0">Todas</button>
+          <button class="filtro-btn" data-aett="1">I · Freyr</button>
+          <button class="filtro-btn" data-aett="2">II · Heimdall</button>
+          <button class="filtro-btn" data-aett="3">III · Tyr</button>
+        </div>
+        <div class="grid-referencia" id="grid-referencia"></div>
+      </div>
+
+      <div class="mapa-secciones">
+        <h2 class="seccion-titulo">⚔️ Tus Lecciones</h2>
         <div class="mapa-lecciones" id="mapa-lecciones"></div>
       </div>
       <div class="mapa-secciones">
@@ -288,32 +296,6 @@
         </button>
       </div>
     </main>
-  </div>
-
-  <!-- ═══════════════ PANTALLA REFERENCIA ═══════════════ -->
-  <div id="pantalla-referencia" class="pantalla">
-    <header class="pantalla-header">
-      <div class="header-content">
-        <h2>📜 Elder Futhark</h2>
-        <p class="header-sub">Las 24 runas del alfabeto nórdico</p>
-      </div>
-    </header>
-    <main class="main-referencia">
-      <div class="filtro-aett">
-        <button class="filtro-btn activa" data-aett="0">Todas</button>
-        <button class="filtro-btn" data-aett="1">I · Freyr</button>
-        <button class="filtro-btn" data-aett="2">II · Heimdall</button>
-        <button class="filtro-btn" data-aett="3">III · Tyr</button>
-      </div>
-      <div class="grid-referencia" id="grid-referencia"></div>
-    </main>
-    <nav class="nav-inferior">
-      <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">🏠</span><span>Inicio</span></button>
-      <button class="nav-btn activa" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
-      <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
-      <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
-      <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
-    </nav>
   </div>
 
   <!-- ═══════════════ PANTALLA TIRADA ═══════════════ -->
@@ -445,7 +427,7 @@
     </main>
     <nav class="nav-inferior">
       <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">🏠</span><span>Inicio</span></button>
-      <button class="nav-btn" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn" data-pantalla="aprender"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
       <button class="nav-btn activa" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
       <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
       <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
@@ -467,7 +449,7 @@
     </main>
     <nav class="nav-inferior">
       <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">🏠</span><span>Inicio</span></button>
-      <button class="nav-btn" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn" data-pantalla="aprender"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
       <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
       <button class="nav-btn activa" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
       <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
@@ -531,7 +513,7 @@
     </main>
     <nav class="nav-inferior">
       <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">🏠</span><span>Inicio</span></button>
-      <button class="nav-btn" data-pantalla="referencia"><span class="nav-icon">📜</span><span>Runas</span></button>
+      <button class="nav-btn" data-pantalla="aprender"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
       <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
       <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
       <button class="nav-btn activa" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
