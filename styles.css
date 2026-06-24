@@ -634,6 +634,10 @@ body::before {
   text-align: center;
   font-style: italic;
   letter-spacing: 0.02em;
+  margin-bottom: 0.8rem;
+}
+.intro-texto:last-child {
+  margin-bottom: 0;
 }
 
 /* ── Runa del Día (Home) ───────────────────────────────────── */
