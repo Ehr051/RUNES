@@ -610,25 +610,32 @@ function renderInicio() {
   // Runa del día (cambia cada día)
   const hoy = new Date().toDateString();
   const cached = localStorage.getItem('nova_runa_dia');
-  let runaDia;
+  let runaDia, runaInvertida = false;
   if (cached) {
     try {
       const parsed = JSON.parse(cached);
       if (parsed.fecha === hoy) {
         runaDia = RUNAS.find(r => r.id === parsed.runaId);
+        runaInvertida = parsed.invertida || false;
       }
     } catch(e) {}
   }
   if (!runaDia) {
     runaDia = RUNAS[Math.floor(Math.random() * RUNAS.length)];
-    localStorage.setItem('nova_runa_dia', JSON.stringify({ fecha: hoy, runaId: runaDia.id }));
+    runaInvertida = !runaDia.simetrica && Math.random() < 0.3;
+    localStorage.setItem('nova_runa_dia', JSON.stringify({ fecha: hoy, runaId: runaDia.id, invertida: runaInvertida }));
   }
   const simbEl = document.getElementById('runa-dia-simbolo');
   const nomEl = document.getElementById('runa-dia-nombre');
   const sigEl = document.getElementById('runa-dia-significado');
-  if (simbEl) simbEl.textContent = runaDia.simbolo;
-  if (nomEl) nomEl.textContent = runaDia.nombre;
-  if (sigEl) sigEl.textContent = runaDia.significado;
+  const merkEl = document.getElementById('runa-dia-merkstave');
+  if (simbEl) {
+    simbEl.textContent = runaDia.simbolo;
+    simbEl.classList.toggle('invertida', runaInvertida);
+  }
+  if (nomEl) nomEl.textContent = runaDia.nombre + (runaInvertida ? ' (Merkstave)' : '');
+  if (sigEl) sigEl.textContent = runaInvertida ? (runaDia.significado_invertido || runaDia.significado) : runaDia.significado;
+  if (merkEl) merkEl.style.display = runaInvertida ? 'inline' : 'none';
   // Resetear flip cada vez que se renderiza inicio
   const flipper = document.getElementById('runa-dia-flipper');
   if (flipper) {

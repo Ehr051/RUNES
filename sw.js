@@ -1,5 +1,5 @@
-// ── RUNES Service Worker v3 ────────────────────────────────
-const CACHE_NAME = 'runes-v3';
+// ── RUNES Service Worker v4 ────────────────────────────────
+const CACHE_NAME = 'runes-v4';
 const PRECACHE = [
   '/',
   '/index.html',
