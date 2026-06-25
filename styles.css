@@ -176,8 +176,8 @@ body::before {
 }
 
 @keyframes runeGlow {
-  0%, 100% { text-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(201,168,76,0.2); }
-  50% { text-shadow: 0 0 60px var(--gold-glow), 0 0 100px rgba(201,168,76,0.35), 0 0 140px rgba(201,168,76,0.15); }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 /* ── Screens ────────────────────────────────────────────────── */
@@ -660,6 +660,17 @@ body::before {
   height: 100%;
   transition: transform 0.6s ease;
   transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.runa-dia-flipper.revelada .runa-dia-front {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.runa-dia-flipper.revelada .runa-dia-back {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .runa-dia-flipper.revelada {
@@ -677,6 +688,11 @@ body::before {
   align-items: center;
   justify-content: center;
   padding: 1.2rem;
+  transition: opacity 0.5s ease;
+}
+
+.runa-dia-back {
+  opacity: 0;
 }
 
 .runa-dia-front {
@@ -2116,16 +2132,25 @@ body::before {
 }
 
 .btn-volver {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.1rem;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1.5px solid rgba(201, 168, 76, 0.25);
+  color: var(--gold);
+  font-size: 1rem;
   cursor: pointer;
-  padding: 0.3rem;
-  transition: color 0.2s;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
-.btn-volver:hover { color: var(--text); }
+.btn-volver:hover {
+  background: rgba(201, 168, 76, 0.18);
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+}
 
 .progreso-barra {
   flex: 1;
@@ -2876,16 +2901,25 @@ body::before {
 }
 
 .btn-back {
-  background: none;
-  border: none;
+  background: rgba(201, 168, 76, 0.06);
+  border: 1.5px solid rgba(201, 168, 76, 0.25);
   color: var(--gold);
   font-size: 0.85rem;
   cursor: pointer;
   margin-bottom: 0.5rem;
-  padding: 0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
-.btn-back:hover { color: var(--gold-light); }
+.btn-back:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+}
 
 /* ── Modal ──────────────────────────────────────────────────── */
 .modal-overlay {

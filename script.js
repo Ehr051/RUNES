@@ -631,14 +631,23 @@ function renderInicio() {
   if (sigEl) sigEl.textContent = runaDia.significado;
   // Resetear flip cada vez que se renderiza inicio
   const flipper = document.getElementById('runa-dia-flipper');
-  if (flipper) flipper.classList.remove('revelada');
+  if (flipper) {
+    flipper.classList.remove('revelada');
+    flipper.style.transform = '';
+    const front = flipper.querySelector('.runa-dia-front');
+    const back = flipper.querySelector('.runa-dia-back');
+    if (front) front.style.removeProperty('display');
+    if (back) back.style.removeProperty('display');
+  }
   const consejoEl = document.getElementById('runa-dia-consejo');
   if (consejoEl) consejoEl.textContent = runaDia.consejo;
 }
 
 function revelarRunaDia() {
   const flipper = document.getElementById('runa-dia-flipper');
-  if (flipper) flipper.classList.add('revelada');
+  if (!flipper) return;
+  flipper.classList.add('revelada');
+  flipper.style.transform = 'rotateY(180deg)';
 }
 
 function renderAprender() {

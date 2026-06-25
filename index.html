@@ -40,12 +40,12 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Crimson+Text:ital@0;1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Crimson+Text:ital@0;1&display=swap"></noscript>
   <link rel="stylesheet" href="styles.min.css">
 
   <!-- Preconnect for Firebase -->
-  <link rel="preconnect" href="https://www.gstatic.com">
-  <link rel="preconnect" href="https://firestore.googleapis.com">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -76,11 +76,11 @@
 <body>
 
   <!-- ═══════════════ LOADING SCREEN ═══════════════ -->
-  <div id="loading-screen" class="loading-screen">
+  <main id="loading-screen" class="loading-screen">
     <div class="loading-runa">ᚱ</div>
     <div class="loading-text">R U N A S</div>
     <div class="loading-bar"><div class="loading-fill"></div></div>
-  </div>
+  </main>
 
   <!-- ═══════════════ PANTALLA LOGIN ═══════════════ -->
   <div id="pantalla-login" class="pantalla">
@@ -307,6 +307,13 @@
         </button>
       </div>
     </main>
+    <nav class="nav-inferior">
+      <button class="nav-btn" data-pantalla="inicio"><span class="nav-icon">🏠</span><span>Inicio</span></button>
+      <button class="nav-btn activa" data-pantalla="aprender"><span class="nav-icon">⚔️</span><span>Aprender</span></button>
+      <button class="nav-btn" data-pantalla="tirada"><span class="nav-icon-circle">ᛟ</span></button>
+      <button class="nav-btn" data-pantalla="diario"><span class="nav-icon">📖</span><span>Diario</span></button>
+      <button class="nav-btn" data-pantalla="perfil"><span class="nav-icon">🛡️</span><span>Perfil</span></button>
+    </nav>
   </div>
 
   <!-- ═══════════════ PANTALLA TIRADA ═══════════════ -->
